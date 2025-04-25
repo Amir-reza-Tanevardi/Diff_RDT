@@ -770,10 +770,17 @@ def init_logger(config):
             corrupt_tag += "_act"
         if config.corruption_rew > 0:
             corrupt_tag += "_rew"
-        if hasattr(config, "logfile"):
-            config.logfile = f"{config.logfile}_{time_tag}_{str(uuid.uuid4())}"
+
+        if config.use_diff_att:
+            diff_tag = "diff_att"
         else:
-            config.logfile = f"{config.alg_type}_{config.env}_{corrupt_tag}_{config.seed}_{time_tag}_{str(uuid.uuid4())}"
+            diff_tag = "att"
+
+        if hasattr(config, "logfile"):
+            config.logfile = f"{config.logfile}_{time_tag}_{str(uuid.uuid4())}_{diff_tag}"
+        else:
+            config.logfile = f"{config.alg_type}_{config.env}_{corrupt_tag}_{config.seed}_{time_tag}_{str(uuid.uuid4())}_{diff_tag}"
+        
         log_path = os.path.join(config.logdir, config.group, config.env, config.logfile)
     log_path = os.path.expanduser(log_path)
     os.makedirs(log_path, exist_ok=True)
