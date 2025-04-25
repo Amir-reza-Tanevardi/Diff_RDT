@@ -42,7 +42,7 @@ def load_minari_trajectories(
     
     if config.sample_ratio < 1.0:
         #dataset_path = os.path.join("utils", config.dataset_path, "original", f"{env_name}_ratio_{config.sample_ratio}.pt")
-        dataset_path = "/content/RobustDecisionTransformer/utils/your_path_of_dataset/original/mujoco/walker2d/medium-v0_ratio_0.1.pt"
+        dataset_path = "/content/Diff_RDT/utils/your_path_of_dataset/original/mujoco/walker2d/medium-v0_ratio_0.1.pt"
         dataset = torch.load(dataset_path)
     else:
         h5path = (

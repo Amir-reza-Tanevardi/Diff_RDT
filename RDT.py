@@ -83,9 +83,9 @@ class TrainConfig:
     ######## others
     debug: bool = False
     alg_type: str = os.path.basename(__file__).rstrip(".py")
-    logdir: str = "~/results/corruption"
+    logdir: str = "results/corruption"
     dataset_path: str = "your_path_of_dataset"
-    save_model: bool = False
+    save_model: bool = True
     ###### corruption
     corruption_agent: str = "IQL"
     corruption_seed: int = 2023
@@ -399,7 +399,7 @@ def train(config: TrainConfig, logger: Logger):
     # trainloader_iter = iter(trainloader)
     for epoch in trange(1, config.num_epochs + 1, desc="Training"):
         time_start = time.time()
-        for step in trange(config.num_updates_on_epoch, desc="Epoch", leave=False):
+        for step in range(config.num_updates_on_epoch): #, desc="Epoch", leave=False):
             # batch = next(trainloader_iter)
             batch = dataset.get_batch(config.batch_size)
 
@@ -462,7 +462,7 @@ def train(config: TrainConfig, logger: Logger):
                     f"Save policy on epoch {epoch} for best reward {best_reward}."
                 )
 
-        if config.save_model and epoch % 50 == 0:
+        if config.save_model and epoch % 10 == 0:
             torch.save(
                 model.state_dict(),
                 os.path.join(logger.get_dir(), f"{epoch}.pt"),
