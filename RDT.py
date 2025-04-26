@@ -32,6 +32,8 @@ class TrainConfig:
     device: str = "cuda" if torch.cuda.is_available() else "cpu"
     num_epochs: int = 100
     num_updates_on_epoch: int = 1000
+    # Setup to use diff attention
+    use_diff_att: bool = False
     # model params
     embedding_dim: int = 128
     num_layers: int = 3
@@ -235,6 +237,7 @@ def set_model(config: TrainConfig):
         mlp_reward=config.mlp_reward,
         embed_order=config.embed_order,
         predict_reward=True,
+        use_diff_att = config.use_diff_att
     ).to(config.device)
     return model
 

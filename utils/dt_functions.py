@@ -295,8 +295,8 @@ class DecisionTransformer(nn.Module):
         mlp_head: bool = False,
         mlp_reward: bool = False,
         predict_reward: bool = False,
-        use_diff_att: bool = False,
         embed_order: str = "rsa",
+        use_diff_att: bool = False,
     ):
         super().__init__()
 
@@ -325,8 +325,9 @@ class DecisionTransformer(nn.Module):
                     attention_dropout=attention_dropout,
                     residual_dropout=residual_dropout,
                     use_diff_att = use_diff_att,
+                    idx = idx
                 )
-                for _ in range(num_layers)
+                for idx in range(num_layers)
             ]
         )
         self.predict_dropout = nn.Dropout(predict_dropout)

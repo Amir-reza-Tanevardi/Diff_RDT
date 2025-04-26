@@ -777,9 +777,9 @@ def init_logger(config):
             diff_tag = "att"
 
         if hasattr(config, "logfile"):
-            config.logfile = f"{config.logfile}_{time_tag}_{str(uuid.uuid4())}_{diff_tag}"
+            config.logfile = f"{config.logfile}_{time_tag}_{str(uuid.uuid4())}_{diff_tag}_{config.num_heads}"
         else:
-            config.logfile = f"{config.alg_type}_{config.env}_{corrupt_tag}_{config.seed}_{time_tag}_{str(uuid.uuid4())}_{diff_tag}"
+            config.logfile = f"{config.alg_type}_{config.env}_{corrupt_tag}_{config.seed}_{time_tag}_{str(uuid.uuid4())}_{diff_tag}_{config.num_heads}"
         
         log_path = os.path.join(config.logdir, config.group, config.env, config.logfile)
     log_path = os.path.expanduser(log_path)

@@ -1,8 +1,13 @@
+import os, sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+
 from typing import Callable, Optional
 
 import numpy as np
 import torch
 import torch.nn as nn
+
+from multihead_diffattn import MultiheadDiffAttn
 
 
 class Scalar(nn.Module):
@@ -125,6 +130,15 @@ class MLPBlock(nn.Module):
         return out
 
 
+def build_rel_pos(seq_len, device):
+    # Return the (cos, sin) relative position encodings needed by apply_rotary_emb
+    inv_freq = 1.0 / (10000 ** (torch.arange(0, seq_len, 2).float() / seq_len))
+    pos_seq = torch.arange(seq_len, device=device).float()
+    sinusoid_inp = torch.einsum('i,j->ij', pos_seq, inv_freq)
+    sin, cos = sinusoid_inp.sin(), sinusoid_inp.cos()
+    return cos, sin
+
+
 class TransformerBlock(nn.Module):
     def __init__(
         self,
@@ -133,15 +147,24 @@ class TransformerBlock(nn.Module):
         num_heads: int,
         attention_dropout: float,
         residual_dropout: float,
+        use_diff_att: bool,
+        idx: int,
     ):
         super().__init__()
         self.norm1 = nn.LayerNorm(embedding_dim)
         self.norm2 = nn.LayerNorm(embedding_dim)
         self.drop = nn.Dropout(residual_dropout)
+        
+        if use_diff_att:
+          num_heads = 1 if num_heads == 1 else num_heads // 2
+          self.attention = MultiheadDiffAttn(
+              embed_dim = embedding_dim, num_heads = num_heads, depth=idx# , batch_first=True
+          )
+        else:
+          self.attention = nn.MultiheadAttention(
+              embedding_dim, num_heads, attention_dropout# , batch_first=True
+          )
 
-        self.attention = nn.MultiheadAttention(
-            embedding_dim, num_heads, attention_dropout# , batch_first=True
-        )
         self.mlp = nn.Sequential(
             nn.Linear(embedding_dim, 4 * embedding_dim),
             nn.GELU(),
@@ -156,29 +179,36 @@ class TransformerBlock(nn.Module):
         self.batch_first = True
 
     # [batch_size, seq_len, emb_dim] -> [batch_size, seq_len, emb_dim]
-    def forward(
-        self, x: torch.Tensor, padding_mask: Optional[torch.Tensor] = None
-    ) -> torch.Tensor:
-        causal_mask = self.causal_mask[: x.shape[1], : x.shape[1]]
+    def forward(self, x: torch.Tensor, padding_mask: Optional[torch.Tensor] = None) -> torch.Tensor:
+      causal_mask = self.causal_mask[:x.shape[1], :x.shape[1]]
+      norm_x = self.norm1(x)
+      is_batched = x.dim() == 3
 
-        norm_x = self.norm1(x)
-        
-        is_batched = x.dim() == 3
-        if self.batch_first and is_batched:
-            norm_x = norm_x.transpose(1, 0)
-        attention_out = self.attention(
-            query=norm_x,
-            key=norm_x,
-            value=norm_x,
-            attn_mask=causal_mask,
-            key_padding_mask=padding_mask,
-            need_weights=False,
-        )[0]
-        if self.batch_first and is_batched:
-            attention_out = attention_out.transpose(1, 0)
-        # by default pytorch attention does not use dropout
-        # after final attention weights projection, while minGPT does:
-        # https://github.com/karpathy/minGPT/blob/7218bcfa527c65f164de791099de715b81a95106/mingpt/model.py#L70 # noqa
-        x = x + self.drop(attention_out)
-        x = x + self.mlp(self.norm2(x))
-        return x
+      if self.batch_first and is_batched:
+          norm_x = norm_x.transpose(1, 0)  # [seq_len, batch_size, emb_dim] for standard MultiheadAttention
+
+      if isinstance(self.attention, nn.MultiheadAttention):
+          attention_out = self.attention(
+              query=norm_x,
+              key=norm_x,
+              value=norm_x,
+              attn_mask=causal_mask,
+              key_padding_mask=padding_mask,
+              need_weights=False,
+          )[0]
+      else:  # assume it's MultiheadDiffAttn
+          if self.batch_first and is_batched:
+              norm_x = norm_x.transpose(0, 1)  # [batch_size, seq_len, emb_dim] for MultiheadDiffAttn
+          rel_pos = build_rel_pos(norm_x.shape[1], norm_x.device)  # <--- YOU NEED TO PROVIDE THIS FUNCTION
+          attention_out = self.attention(
+              x=norm_x,
+              rel_pos=rel_pos,
+              attn_mask=causal_mask.float(),  # MultiheadDiffAttn expects float mask
+          )
+
+      if self.batch_first and is_batched:
+          attention_out = attention_out.transpose(1, 0)
+
+      x = x + self.drop(attention_out)
+      x = x + self.mlp(self.norm2(x))
+      return x
