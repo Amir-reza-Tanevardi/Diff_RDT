@@ -1,7 +1,7 @@
 {
     "eval_every": "1",
     "n_episodes": "10",
-    "device": "cpu",
+    "device": "cuda",
     "num_epochs": "100",
     "num_updates_on_epoch": "1000",
     "use_diff_att": "True",
@@ -63,5 +63,5 @@
     "use_original": "0",
     "same_index": "0",
     "froce_attack": "0",
-    "logfile": "RDT_Walker2d-v4_rnd_obs_0_20250426150059_c977a9c6-e56b-484a-a4e9-d5c00826053f_diff_att_1"
+    "logfile": "RDT_Walker2d-v4_rnd_obs_0_20250426172859_f941625c-ebe3-4459-b89e-d082c0d3e2c2_diff_att_1"
 }

@@ -1,0 +1,2053 @@
+Logging to results/corruption/2024062305/Walker2d-v4/RDT_Walker2d-v4_rnd_obs_0_20250426172859_f941625c-ebe3-4459-b89e-d082c0d3e2c2_diff_att_1
+eval_every: 1
+n_episodes: 10
+device: cuda
+num_epochs: 100
+num_updates_on_epoch: 1000
+use_diff_att: True
+embedding_dim: 128
+num_layers: 3
+num_heads: 1
+seq_len: 20
+episode_len: 1000
+attention_dropout: 0.0
+residual_dropout: 0.1
+embedding_dropout: None
+mlp_embedding: False
+mlp_head: False
+mlp_reward: True
+embed_order: rsa
+learning_rate: 0.0001
+betas: (0.9, 0.999)
+weight_decay: 0.0001
+clip_grad: 0.25
+batch_size: 64
+update_steps: 100000
+warmup_steps: 10000
+reward_scale: 0.001
+normalize: True
+normalize_reward: False
+loss_fn: wmse
+wmse_coef: (0.0, 0.0)
+reward_coef: 1.0
+recalculate_return: False
+correct_freq: 1
+correct_start: 50
+correct_thershold: None
+target_returns: (12000.0, 6000.0)
+eval_id: 00
+eval_only: False
+eval_attack: True
+eval_attack_eps: 0.01
+eval_attack_mode: random
+checkpoint_dir: None
+use_wandb: 0
+group: 2024062305
+env: Walker2d-v4
+minari_dataset_id: minari/walker2d-medium-v2
+seed: 0
+down_sample: True
+sample_ratio: 0.1
+debug: False
+alg_type: RDT
+logdir: results/corruption
+dataset_path: your_dataset_path
+save_model: True
+corruption_agent: IQL
+corruption_seed: 0
+corruption_mode: random
+corruption_obs: 1.0
+corruption_act: 0.0
+corruption_rew: 0.0
+corruption_rate: 0.3
+use_original: 0
+same_index: 0
+froce_attack: 0
+logfile: RDT_Walker2d-v4_rnd_obs_0_20250426172859_f941625c-ebe3-4459-b89e-d082c0d3e2c2_diff_att_1
+Load new dataset from your_dataset_path/log_attack_data/Walker2d-v4/random_0_ratio_0.1_obs_1.0_0.3.pth
+random observations
+Attack name: _ratio_0.1_obs_1.0_0.3
+Dataset: 104 trajectories
+State mean: [[ 1.22334051e+00 -1.67085797e-02 -4.14643609e-01 -6.83707640e-03
+   2.56521932e-01 -9.76107965e-02 -5.49006676e-01  1.15862676e-01
+   4.96850683e+00 -2.91792073e-03  1.98722032e-03 -4.33489993e-02
+  -2.10986769e-02  6.35574327e-01 -1.25708428e-02  7.40375992e-02
+   5.35483126e-01]], std: [[0.06329407 0.23992098 0.41358941 0.09799204 0.64112285 0.21625538
+  0.4059761  0.67789316 1.40967205 0.67806036 2.35349475 3.93122688
+  1.96666773 6.00912943 3.11459959 5.43827092 6.79833387]]
+Network: 
+DecisionTransformer(
+  (emb_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+  (out_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+  (timestep_emb): Embedding(1020, 128)
+  (state_emb): Linear(in_features=17, out_features=128, bias=True)
+  (action_emb): Linear(in_features=6, out_features=128, bias=True)
+  (return_emb): Linear(in_features=1, out_features=128, bias=True)
+  (blocks): ModuleList(
+    (0-2): 3 x TransformerBlock(
+      (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (drop): Dropout(p=0.1, inplace=False)
+      (attention): MultiheadDiffAttn(
+        (q_proj): Linear(in_features=128, out_features=128, bias=False)
+        (k_proj): Linear(in_features=128, out_features=128, bias=False)
+        (v_proj): Linear(in_features=128, out_features=128, bias=False)
+        (out_proj): Linear(in_features=128, out_features=128, bias=False)
+        (subln): RMSNorm(dim=128, eps=1e-05, elementwise_affine=True)
+      )
+      (mlp): Sequential(
+        (0): Linear(in_features=128, out_features=512, bias=True)
+        (1): GELU(approximate='none')
+        (2): Linear(in_features=512, out_features=128, bias=True)
+        (3): Dropout(p=0.1, inplace=False)
+      )
+    )
+  )
+  (predict_dropout): Dropout(p=0.1, inplace=False)
+  (action_head): MLPBlock(
+    (model): Sequential(
+      (0): Linear(in_features=128, out_features=6, bias=True)
+      (1): Tanh()
+    )
+  )
+  (reward_head): MLPBlock(
+    (model): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): GELU(approximate='none')
+      (2): Linear(in_features=128, out_features=1, bias=True)
+    )
+  )
+)
+Total parameters: 746375
+------------------------------------------------
+| epoch                            | 0         |
+| eval/                            |           |
+|    12000.0_normalized_score_mean | -0.962598 |
+|    12000.0_normalized_score_std  | 0.0788047 |
+|    12000.0_reward_mean           | -0.962598 |
+|    12000.0_reward_std            | 0.0788047 |
+|    6000.0_normalized_score_mean  | -1.04125  |
+|    6000.0_normalized_score_std   | 0.0844271 |
+|    6000.0_reward_mean            | -1.04125  |
+|    6000.0_reward_std             | 0.0844271 |
+------------------------------------------------
+--------------------------------------------------
+| epoch                            | 1           |
+| epoch_time                       | 33.9134     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | -10.8497    |
+|    12000.0_normalized_score_std  | 9.11009     |
+|    12000.0_reward_mean           | -10.8497    |
+|    12000.0_reward_std            | 9.11009     |
+|    6000.0_normalized_score_mean  | -6.30868    |
+|    6000.0_normalized_score_std   | 8.18013     |
+|    6000.0_reward_mean            | -6.30868    |
+|    6000.0_reward_std             | 8.18013     |
+| update/                          |             |
+|    gradient_step                 | 1000        |
+|    learning_rate                 | 1.001e-05   |
+|    loss_action                   | 0.120591    |
+|    loss_reward                   | 1.61111e-05 |
+|    policy_loss                   | 0.120607    |
+--------------------------------------------------
+Save policy on epoch 1 for best reward -10.849650340134414.
+------------------------------------------------
+| epoch                            | 2         |
+| epoch_time                       | 34.1707   |
+| eval/                            |           |
+|    12000.0_normalized_score_mean | 5.52759   |
+|    12000.0_normalized_score_std  | 1.25041   |
+|    12000.0_reward_mean           | 5.52759   |
+|    12000.0_reward_std            | 1.25041   |
+|    6000.0_normalized_score_mean  | 6.57069   |
+|    6000.0_normalized_score_std   | 1.39912   |
+|    6000.0_reward_mean            | 6.57069   |
+|    6000.0_reward_std             | 1.39912   |
+| update/                          |           |
+|    gradient_step                 | 2000      |
+|    learning_rate                 | 2.001e-05 |
+|    loss_action                   | 0.0131906 |
+|    loss_reward                   | 5.353e-06 |
+|    policy_loss                   | 0.0131959 |
+------------------------------------------------
+Save policy on epoch 2 for best reward 5.527588832875793.
+--------------------------------------------------
+| epoch                            | 3           |
+| epoch_time                       | 34.0587     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | -10.3582    |
+|    12000.0_normalized_score_std  | 0.370783    |
+|    12000.0_reward_mean           | -10.3582    |
+|    12000.0_reward_std            | 0.370783    |
+|    6000.0_normalized_score_mean  | -10.4283    |
+|    6000.0_normalized_score_std   | 0.378773    |
+|    6000.0_reward_mean            | -10.4283    |
+|    6000.0_reward_std             | 0.378773    |
+| update/                          |             |
+|    gradient_step                 | 3000        |
+|    learning_rate                 | 3.001e-05   |
+|    loss_action                   | 0.010149    |
+|    loss_reward                   | 3.67592e-06 |
+|    policy_loss                   | 0.0101526   |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 4           |
+| epoch_time                       | 34.2307     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | -12.4952    |
+|    12000.0_normalized_score_std  | 0.399962    |
+|    12000.0_reward_mean           | -12.4952    |
+|    12000.0_reward_std            | 0.399962    |
+|    6000.0_normalized_score_mean  | -12.396     |
+|    6000.0_normalized_score_std   | 0.38327     |
+|    6000.0_reward_mean            | -12.396     |
+|    6000.0_reward_std             | 0.38327     |
+| update/                          |             |
+|    gradient_step                 | 4000        |
+|    learning_rate                 | 4.001e-05   |
+|    loss_action                   | 0.00740104  |
+|    loss_reward                   | 2.02297e-06 |
+|    policy_loss                   | 0.00740306  |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 5           |
+| epoch_time                       | 33.9239     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 1.80692     |
+|    12000.0_normalized_score_std  | 0.0694742   |
+|    12000.0_reward_mean           | 1.80692     |
+|    12000.0_reward_std            | 0.0694742   |
+|    6000.0_normalized_score_mean  | 1.75719     |
+|    6000.0_normalized_score_std   | 0.0665733   |
+|    6000.0_reward_mean            | 1.75719     |
+|    6000.0_reward_std             | 0.0665733   |
+| update/                          |             |
+|    gradient_step                 | 5000        |
+|    learning_rate                 | 5.001e-05   |
+|    loss_action                   | 0.00435184  |
+|    loss_reward                   | 1.36165e-06 |
+|    policy_loss                   | 0.0043532   |
+--------------------------------------------------
+-------------------------------------------------
+| epoch                            | 6          |
+| epoch_time                       | 35.4566    |
+| eval/                            |            |
+|    12000.0_normalized_score_mean | 2.24866    |
+|    12000.0_normalized_score_std  | 0.0347135  |
+|    12000.0_reward_mean           | 2.24866    |
+|    12000.0_reward_std            | 0.0347135  |
+|    6000.0_normalized_score_mean  | 2.23781    |
+|    6000.0_normalized_score_std   | 0.0572098  |
+|    6000.0_reward_mean            | 2.23781    |
+|    6000.0_reward_std             | 0.0572098  |
+| update/                          |            |
+|    gradient_step                 | 6000       |
+|    learning_rate                 | 6.001e-05  |
+|    loss_action                   | 0.00304241 |
+|    loss_reward                   | 1.187e-06  |
+|    policy_loss                   | 0.0030436  |
+-------------------------------------------------
+--------------------------------------------------
+| epoch                            | 7           |
+| epoch_time                       | 35.7053     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 3.84309     |
+|    12000.0_normalized_score_std  | 0.0507027   |
+|    12000.0_reward_mean           | 3.84309     |
+|    12000.0_reward_std            | 0.0507027   |
+|    6000.0_normalized_score_mean  | 3.83398     |
+|    6000.0_normalized_score_std   | 0.0417545   |
+|    6000.0_reward_mean            | 3.83398     |
+|    6000.0_reward_std             | 0.0417545   |
+| update/                          |             |
+|    gradient_step                 | 7000        |
+|    learning_rate                 | 7.001e-05   |
+|    loss_action                   | 0.00213537  |
+|    loss_reward                   | 1.23305e-06 |
+|    policy_loss                   | 0.0021366   |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 8           |
+| epoch_time                       | 35.5233     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 8.30059     |
+|    12000.0_normalized_score_std  | 0.0568914   |
+|    12000.0_reward_mean           | 8.30059     |
+|    12000.0_reward_std            | 0.0568914   |
+|    6000.0_normalized_score_mean  | 8.37241     |
+|    6000.0_normalized_score_std   | 0.0860624   |
+|    6000.0_reward_mean            | 8.37241     |
+|    6000.0_reward_std             | 0.0860624   |
+| update/                          |             |
+|    gradient_step                 | 8000        |
+|    learning_rate                 | 8.001e-05   |
+|    loss_action                   | 0.0016013   |
+|    loss_reward                   | 8.70639e-07 |
+|    policy_loss                   | 0.00160217  |
+--------------------------------------------------
+Save policy on epoch 8 for best reward 8.300591907082602.
+--------------------------------------------------
+| epoch                            | 9           |
+| epoch_time                       | 35.0981     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 20.8655     |
+|    12000.0_normalized_score_std  | 1.34194     |
+|    12000.0_reward_mean           | 20.8655     |
+|    12000.0_reward_std            | 1.34194     |
+|    6000.0_normalized_score_mean  | 22.216      |
+|    6000.0_normalized_score_std   | 0.476505    |
+|    6000.0_reward_mean            | 22.216      |
+|    6000.0_reward_std             | 0.476505    |
+| update/                          |             |
+|    gradient_step                 | 9000        |
+|    learning_rate                 | 9.001e-05   |
+|    loss_action                   | 0.00125852  |
+|    loss_reward                   | 5.24493e-07 |
+|    policy_loss                   | 0.00125905  |
+--------------------------------------------------
+Save policy on epoch 9 for best reward 20.865465687801304.
+--------------------------------------------------
+| epoch                            | 10          |
+| epoch_time                       | 35.6238     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 70.5217     |
+|    12000.0_normalized_score_std  | 7.79819     |
+|    12000.0_reward_mean           | 70.5217     |
+|    12000.0_reward_std            | 7.79819     |
+|    6000.0_normalized_score_mean  | 70.614      |
+|    6000.0_normalized_score_std   | 6.94285     |
+|    6000.0_reward_mean            | 70.614      |
+|    6000.0_reward_std             | 6.94285     |
+| update/                          |             |
+|    gradient_step                 | 10000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00108053  |
+|    loss_reward                   | 7.94646e-07 |
+|    policy_loss                   | 0.00108133  |
+--------------------------------------------------
+Save policy on epoch 10 for best reward 70.52174889993947.
+Save policy on epoch 10.
+--------------------------------------------------
+| epoch                            | 11          |
+| epoch_time                       | 35.291      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 60.4992     |
+|    12000.0_normalized_score_std  | 1.99063     |
+|    12000.0_reward_mean           | 60.4992     |
+|    12000.0_reward_std            | 1.99063     |
+|    6000.0_normalized_score_mean  | 60.552      |
+|    6000.0_normalized_score_std   | 1.94342     |
+|    6000.0_reward_mean            | 60.552      |
+|    6000.0_reward_std             | 1.94342     |
+| update/                          |             |
+|    gradient_step                 | 11000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000960368 |
+|    loss_reward                   | 7.18922e-07 |
+|    policy_loss                   | 0.000961087 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 12          |
+| epoch_time                       | 34.86       |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 58.9016     |
+|    12000.0_normalized_score_std  | 1.9938      |
+|    12000.0_reward_mean           | 58.9016     |
+|    12000.0_reward_std            | 1.9938      |
+|    6000.0_normalized_score_mean  | 58.2117     |
+|    6000.0_normalized_score_std   | 1.57555     |
+|    6000.0_reward_mean            | 58.2117     |
+|    6000.0_reward_std             | 1.57555     |
+| update/                          |             |
+|    gradient_step                 | 12000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000870796 |
+|    loss_reward                   | 4.17939e-07 |
+|    policy_loss                   | 0.000871214 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 13          |
+| epoch_time                       | 33.8269     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 126.732     |
+|    12000.0_normalized_score_std  | 9.1788      |
+|    12000.0_reward_mean           | 126.732     |
+|    12000.0_reward_std            | 9.1788      |
+|    6000.0_normalized_score_mean  | 127.927     |
+|    6000.0_normalized_score_std   | 7.88421     |
+|    6000.0_reward_mean            | 127.927     |
+|    6000.0_reward_std             | 7.88421     |
+| update/                          |             |
+|    gradient_step                 | 13000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000858917 |
+|    loss_reward                   | 8.055e-07   |
+|    policy_loss                   | 0.000859723 |
+--------------------------------------------------
+Save policy on epoch 13 for best reward 126.73224442396477.
+--------------------------------------------------
+| epoch                            | 14          |
+| epoch_time                       | 33.5636     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 127.538     |
+|    12000.0_normalized_score_std  | 6.39917     |
+|    12000.0_reward_mean           | 127.538     |
+|    12000.0_reward_std            | 6.39917     |
+|    6000.0_normalized_score_mean  | 154.425     |
+|    6000.0_normalized_score_std   | 55.7715     |
+|    6000.0_reward_mean            | 154.425     |
+|    6000.0_reward_std             | 55.7715     |
+| update/                          |             |
+|    gradient_step                 | 14000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000748574 |
+|    loss_reward                   | 6.25446e-07 |
+|    policy_loss                   | 0.0007492   |
+--------------------------------------------------
+Save policy on epoch 14 for best reward 127.53789959445194.
+--------------------------------------------------
+| epoch                            | 15          |
+| epoch_time                       | 34.2996     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 256.625     |
+|    12000.0_normalized_score_std  | 3.07367     |
+|    12000.0_reward_mean           | 256.625     |
+|    12000.0_reward_std            | 3.07367     |
+|    6000.0_normalized_score_mean  | 257.583     |
+|    6000.0_normalized_score_std   | 3.07444     |
+|    6000.0_reward_mean            | 257.583     |
+|    6000.0_reward_std             | 3.07444     |
+| update/                          |             |
+|    gradient_step                 | 15000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000751534 |
+|    loss_reward                   | 1.02469e-06 |
+|    policy_loss                   | 0.000752558 |
+--------------------------------------------------
+Save policy on epoch 15 for best reward 256.6246570675763.
+--------------------------------------------------
+| epoch                            | 16          |
+| epoch_time                       | 34.4257     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 271         |
+|    12000.0_normalized_score_std  | 3.41892     |
+|    12000.0_reward_mean           | 271         |
+|    12000.0_reward_std            | 3.41892     |
+|    6000.0_normalized_score_mean  | 271.367     |
+|    6000.0_normalized_score_std   | 2.94141     |
+|    6000.0_reward_mean            | 271.367     |
+|    6000.0_reward_std             | 2.94141     |
+| update/                          |             |
+|    gradient_step                 | 16000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000667168 |
+|    loss_reward                   | 4.63802e-07 |
+|    policy_loss                   | 0.000667632 |
+--------------------------------------------------
+Save policy on epoch 16 for best reward 271.00012528899606.
+--------------------------------------------------
+| epoch                            | 17          |
+| epoch_time                       | 34.389      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 262.141     |
+|    12000.0_normalized_score_std  | 2.44741     |
+|    12000.0_reward_mean           | 262.141     |
+|    12000.0_reward_std            | 2.44741     |
+|    6000.0_normalized_score_mean  | 260.517     |
+|    6000.0_normalized_score_std   | 2.56594     |
+|    6000.0_reward_mean            | 260.517     |
+|    6000.0_reward_std             | 2.56594     |
+| update/                          |             |
+|    gradient_step                 | 17000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000651577 |
+|    loss_reward                   | 5.15656e-07 |
+|    policy_loss                   | 0.000652092 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 18          |
+| epoch_time                       | 33.7954     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 283.857     |
+|    12000.0_normalized_score_std  | 8.79258     |
+|    12000.0_reward_mean           | 283.857     |
+|    12000.0_reward_std            | 8.79258     |
+|    6000.0_normalized_score_mean  | 285.335     |
+|    6000.0_normalized_score_std   | 7.47963     |
+|    6000.0_reward_mean            | 285.335     |
+|    6000.0_reward_std             | 7.47963     |
+| update/                          |             |
+|    gradient_step                 | 18000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000594159 |
+|    loss_reward                   | 5.89509e-07 |
+|    policy_loss                   | 0.000594748 |
+--------------------------------------------------
+Save policy on epoch 18 for best reward 283.8567458482128.
+--------------------------------------------------
+| epoch                            | 19          |
+| epoch_time                       | 34.5787     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 79.5121     |
+|    12000.0_normalized_score_std  | 2.93479     |
+|    12000.0_reward_mean           | 79.5121     |
+|    12000.0_reward_std            | 2.93479     |
+|    6000.0_normalized_score_mean  | 80.4984     |
+|    6000.0_normalized_score_std   | 3.42449     |
+|    6000.0_reward_mean            | 80.4984     |
+|    6000.0_reward_std             | 3.42449     |
+| update/                          |             |
+|    gradient_step                 | 19000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000614125 |
+|    loss_reward                   | 8.20683e-07 |
+|    policy_loss                   | 0.000614946 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 20          |
+| epoch_time                       | 34.5874     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 70.054      |
+|    12000.0_normalized_score_std  | 1.42818     |
+|    12000.0_reward_mean           | 70.054      |
+|    12000.0_reward_std            | 1.42818     |
+|    6000.0_normalized_score_mean  | 68.6325     |
+|    6000.0_normalized_score_std   | 1.79107     |
+|    6000.0_reward_mean            | 68.6325     |
+|    6000.0_reward_std             | 1.79107     |
+| update/                          |             |
+|    gradient_step                 | 20000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000529628 |
+|    loss_reward                   | 7.66821e-07 |
+|    policy_loss                   | 0.000530395 |
+--------------------------------------------------
+Save policy on epoch 20.
+--------------------------------------------------
+| epoch                            | 21          |
+| epoch_time                       | 34.6799     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 52.0744     |
+|    12000.0_normalized_score_std  | 1.64351     |
+|    12000.0_reward_mean           | 52.0744     |
+|    12000.0_reward_std            | 1.64351     |
+|    6000.0_normalized_score_mean  | 50.7961     |
+|    6000.0_normalized_score_std   | 1.12677     |
+|    6000.0_reward_mean            | 50.7961     |
+|    6000.0_reward_std             | 1.12677     |
+| update/                          |             |
+|    gradient_step                 | 21000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000537646 |
+|    loss_reward                   | 4.27939e-07 |
+|    policy_loss                   | 0.000538074 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 22          |
+| epoch_time                       | 34.7436     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 65.1323     |
+|    12000.0_normalized_score_std  | 1.20693     |
+|    12000.0_reward_mean           | 65.1323     |
+|    12000.0_reward_std            | 1.20693     |
+|    6000.0_normalized_score_mean  | 63.354      |
+|    6000.0_normalized_score_std   | 1.58433     |
+|    6000.0_reward_mean            | 63.354      |
+|    6000.0_reward_std             | 1.58433     |
+| update/                          |             |
+|    gradient_step                 | 22000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000539198 |
+|    loss_reward                   | 5.89156e-07 |
+|    policy_loss                   | 0.000539787 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 23          |
+| epoch_time                       | 33.229      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 55.4607     |
+|    12000.0_normalized_score_std  | 1.61598     |
+|    12000.0_reward_mean           | 55.4607     |
+|    12000.0_reward_std            | 1.61598     |
+|    6000.0_normalized_score_mean  | 53.4861     |
+|    6000.0_normalized_score_std   | 1.36821     |
+|    6000.0_reward_mean            | 53.4861     |
+|    6000.0_reward_std             | 1.36821     |
+| update/                          |             |
+|    gradient_step                 | 23000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000496439 |
+|    loss_reward                   | 4.47062e-07 |
+|    policy_loss                   | 0.000496886 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 24          |
+| epoch_time                       | 34.5268     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 56.2197     |
+|    12000.0_normalized_score_std  | 3.42279     |
+|    12000.0_reward_mean           | 56.2197     |
+|    12000.0_reward_std            | 3.42279     |
+|    6000.0_normalized_score_mean  | 51.7787     |
+|    6000.0_normalized_score_std   | 1.76775     |
+|    6000.0_reward_mean            | 51.7787     |
+|    6000.0_reward_std             | 1.76775     |
+| update/                          |             |
+|    gradient_step                 | 24000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000508143 |
+|    loss_reward                   | 8.54515e-07 |
+|    policy_loss                   | 0.000508998 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 25          |
+| epoch_time                       | 33.1472     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 44.7897     |
+|    12000.0_normalized_score_std  | 1.93799     |
+|    12000.0_reward_mean           | 44.7897     |
+|    12000.0_reward_std            | 1.93799     |
+|    6000.0_normalized_score_mean  | 43.0341     |
+|    6000.0_normalized_score_std   | 0.996869    |
+|    6000.0_reward_mean            | 43.0341     |
+|    6000.0_reward_std             | 0.996869    |
+| update/                          |             |
+|    gradient_step                 | 25000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000523455 |
+|    loss_reward                   | 6.30195e-07 |
+|    policy_loss                   | 0.000524086 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 26          |
+| epoch_time                       | 33.7043     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 50.88       |
+|    12000.0_normalized_score_std  | 3.06897     |
+|    12000.0_reward_mean           | 50.88       |
+|    12000.0_reward_std            | 3.06897     |
+|    6000.0_normalized_score_mean  | 47.6428     |
+|    6000.0_normalized_score_std   | 1.16506     |
+|    6000.0_reward_mean            | 47.6428     |
+|    6000.0_reward_std             | 1.16506     |
+| update/                          |             |
+|    gradient_step                 | 26000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000482139 |
+|    loss_reward                   | 5.05004e-07 |
+|    policy_loss                   | 0.000482644 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 27          |
+| epoch_time                       | 33.9666     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 52.8468     |
+|    12000.0_normalized_score_std  | 2.86304     |
+|    12000.0_reward_mean           | 52.8468     |
+|    12000.0_reward_std            | 2.86304     |
+|    6000.0_normalized_score_mean  | 50.9838     |
+|    6000.0_normalized_score_std   | 3.48937     |
+|    6000.0_reward_mean            | 50.9838     |
+|    6000.0_reward_std             | 3.48937     |
+| update/                          |             |
+|    gradient_step                 | 27000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000506001 |
+|    loss_reward                   | 4.70042e-07 |
+|    policy_loss                   | 0.000506471 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 28          |
+| epoch_time                       | 34.0594     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 75.0262     |
+|    12000.0_normalized_score_std  | 4.19583     |
+|    12000.0_reward_mean           | 75.0262     |
+|    12000.0_reward_std            | 4.19583     |
+|    6000.0_normalized_score_mean  | 77.1469     |
+|    6000.0_normalized_score_std   | 3.95468     |
+|    6000.0_reward_mean            | 77.1469     |
+|    6000.0_reward_std             | 3.95468     |
+| update/                          |             |
+|    gradient_step                 | 28000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000471855 |
+|    loss_reward                   | 2.9248e-07  |
+|    policy_loss                   | 0.000472147 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 29          |
+| epoch_time                       | 33.1572     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 68.0513     |
+|    12000.0_normalized_score_std  | 6.48542     |
+|    12000.0_reward_mean           | 68.0513     |
+|    12000.0_reward_std            | 6.48542     |
+|    6000.0_normalized_score_mean  | 69.5965     |
+|    6000.0_normalized_score_std   | 9.92886     |
+|    6000.0_reward_mean            | 69.5965     |
+|    6000.0_reward_std             | 9.92886     |
+| update/                          |             |
+|    gradient_step                 | 29000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.0004887   |
+|    loss_reward                   | 3.31009e-07 |
+|    policy_loss                   | 0.000489031 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 30          |
+| epoch_time                       | 34.2539     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 60.993      |
+|    12000.0_normalized_score_std  | 2.0712      |
+|    12000.0_reward_mean           | 60.993      |
+|    12000.0_reward_std            | 2.0712      |
+|    6000.0_normalized_score_mean  | 56.3722     |
+|    6000.0_normalized_score_std   | 1.46494     |
+|    6000.0_reward_mean            | 56.3722     |
+|    6000.0_reward_std             | 1.46494     |
+| update/                          |             |
+|    gradient_step                 | 30000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000459775 |
+|    loss_reward                   | 4.71626e-07 |
+|    policy_loss                   | 0.000460247 |
+--------------------------------------------------
+Save policy on epoch 30.
+--------------------------------------------------
+| epoch                            | 31          |
+| epoch_time                       | 33.2792     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 54.994      |
+|    12000.0_normalized_score_std  | 2.51096     |
+|    12000.0_reward_mean           | 54.994      |
+|    12000.0_reward_std            | 2.51096     |
+|    6000.0_normalized_score_mean  | 51.7783     |
+|    6000.0_normalized_score_std   | 1.72519     |
+|    6000.0_reward_mean            | 51.7783     |
+|    6000.0_reward_std             | 1.72519     |
+| update/                          |             |
+|    gradient_step                 | 31000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00049368  |
+|    loss_reward                   | 6.27503e-07 |
+|    policy_loss                   | 0.000494307 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 32          |
+| epoch_time                       | 34.0527     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 72.0842     |
+|    12000.0_normalized_score_std  | 4.24762     |
+|    12000.0_reward_mean           | 72.0842     |
+|    12000.0_reward_std            | 4.24762     |
+|    6000.0_normalized_score_mean  | 63.1561     |
+|    6000.0_normalized_score_std   | 5.13273     |
+|    6000.0_reward_mean            | 63.1561     |
+|    6000.0_reward_std             | 5.13273     |
+| update/                          |             |
+|    gradient_step                 | 32000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000483975 |
+|    loss_reward                   | 3.60373e-07 |
+|    policy_loss                   | 0.000484335 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 33          |
+| epoch_time                       | 33.4979     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 60.711      |
+|    12000.0_normalized_score_std  | 2.27058     |
+|    12000.0_reward_mean           | 60.711      |
+|    12000.0_reward_std            | 2.27058     |
+|    6000.0_normalized_score_mean  | 56.9114     |
+|    6000.0_normalized_score_std   | 2.27924     |
+|    6000.0_reward_mean            | 56.9114     |
+|    6000.0_reward_std             | 2.27924     |
+| update/                          |             |
+|    gradient_step                 | 33000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000491494 |
+|    loss_reward                   | 4.21057e-07 |
+|    policy_loss                   | 0.000491915 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 34          |
+| epoch_time                       | 34.1147     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 53.9515     |
+|    12000.0_normalized_score_std  | 1.2177      |
+|    12000.0_reward_mean           | 53.9515     |
+|    12000.0_reward_std            | 1.2177      |
+|    6000.0_normalized_score_mean  | 50.1469     |
+|    6000.0_normalized_score_std   | 0.686332    |
+|    6000.0_reward_mean            | 50.1469     |
+|    6000.0_reward_std             | 0.686332    |
+| update/                          |             |
+|    gradient_step                 | 34000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000493814 |
+|    loss_reward                   | 5.0589e-07  |
+|    policy_loss                   | 0.00049432  |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 35          |
+| epoch_time                       | 33.3209     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 52.0697     |
+|    12000.0_normalized_score_std  | 1.87532     |
+|    12000.0_reward_mean           | 52.0697     |
+|    12000.0_reward_std            | 1.87532     |
+|    6000.0_normalized_score_mean  | 50.17       |
+|    6000.0_normalized_score_std   | 1.15218     |
+|    6000.0_reward_mean            | 50.17       |
+|    6000.0_reward_std             | 1.15218     |
+| update/                          |             |
+|    gradient_step                 | 35000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000448699 |
+|    loss_reward                   | 2.41137e-07 |
+|    policy_loss                   | 0.00044894  |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 36          |
+| epoch_time                       | 34.0352     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 62.7199     |
+|    12000.0_normalized_score_std  | 2.59168     |
+|    12000.0_reward_mean           | 62.7199     |
+|    12000.0_reward_std            | 2.59168     |
+|    6000.0_normalized_score_mean  | 56.3511     |
+|    6000.0_normalized_score_std   | 2.92942     |
+|    6000.0_reward_mean            | 56.3511     |
+|    6000.0_reward_std             | 2.92942     |
+| update/                          |             |
+|    gradient_step                 | 36000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000457376 |
+|    loss_reward                   | 3.78135e-07 |
+|    policy_loss                   | 0.000457754 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 37          |
+| epoch_time                       | 34.0206     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 68.3135     |
+|    12000.0_normalized_score_std  | 2.50434     |
+|    12000.0_reward_mean           | 68.3135     |
+|    12000.0_reward_std            | 2.50434     |
+|    6000.0_normalized_score_mean  | 60.9575     |
+|    6000.0_normalized_score_std   | 1.58637     |
+|    6000.0_reward_mean            | 60.9575     |
+|    6000.0_reward_std             | 1.58637     |
+| update/                          |             |
+|    gradient_step                 | 37000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000471021 |
+|    loss_reward                   | 3.56625e-07 |
+|    policy_loss                   | 0.000471378 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 38          |
+| epoch_time                       | 34.134      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 49.205      |
+|    12000.0_normalized_score_std  | 1.51386     |
+|    12000.0_reward_mean           | 49.205      |
+|    12000.0_reward_std            | 1.51386     |
+|    6000.0_normalized_score_mean  | 48.5738     |
+|    6000.0_normalized_score_std   | 1.65289     |
+|    6000.0_reward_mean            | 48.5738     |
+|    6000.0_reward_std             | 1.65289     |
+| update/                          |             |
+|    gradient_step                 | 38000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00045931  |
+|    loss_reward                   | 5.23136e-07 |
+|    policy_loss                   | 0.000459833 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 39          |
+| epoch_time                       | 33.9895     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 35.8502     |
+|    12000.0_normalized_score_std  | 0.972445    |
+|    12000.0_reward_mean           | 35.8502     |
+|    12000.0_reward_std            | 0.972445    |
+|    6000.0_normalized_score_mean  | 34.895      |
+|    6000.0_normalized_score_std   | 0.701891    |
+|    6000.0_reward_mean            | 34.895      |
+|    6000.0_reward_std             | 0.701891    |
+| update/                          |             |
+|    gradient_step                 | 39000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000444243 |
+|    loss_reward                   | 3.4421e-07  |
+|    policy_loss                   | 0.000444587 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 40          |
+| epoch_time                       | 33.5007     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 49.9534     |
+|    12000.0_normalized_score_std  | 1.48394     |
+|    12000.0_reward_mean           | 49.9534     |
+|    12000.0_reward_std            | 1.48394     |
+|    6000.0_normalized_score_mean  | 46.8251     |
+|    6000.0_normalized_score_std   | 1.824       |
+|    6000.0_reward_mean            | 46.8251     |
+|    6000.0_reward_std             | 1.824       |
+| update/                          |             |
+|    gradient_step                 | 40000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000476425 |
+|    loss_reward                   | 3.35676e-07 |
+|    policy_loss                   | 0.000476761 |
+--------------------------------------------------
+Save policy on epoch 40.
+--------------------------------------------------
+| epoch                            | 41          |
+| epoch_time                       | 33.8848     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 40.1884     |
+|    12000.0_normalized_score_std  | 0.944503    |
+|    12000.0_reward_mean           | 40.1884     |
+|    12000.0_reward_std            | 0.944503    |
+|    6000.0_normalized_score_mean  | 38.3399     |
+|    6000.0_normalized_score_std   | 1.11133     |
+|    6000.0_reward_mean            | 38.3399     |
+|    6000.0_reward_std             | 1.11133     |
+| update/                          |             |
+|    gradient_step                 | 41000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000432677 |
+|    loss_reward                   | 3.11106e-07 |
+|    policy_loss                   | 0.000432988 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 42          |
+| epoch_time                       | 34.2992     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 64.5828     |
+|    12000.0_normalized_score_std  | 2.02891     |
+|    12000.0_reward_mean           | 64.5828     |
+|    12000.0_reward_std            | 2.02891     |
+|    6000.0_normalized_score_mean  | 58.4083     |
+|    6000.0_normalized_score_std   | 1.38763     |
+|    6000.0_reward_mean            | 58.4083     |
+|    6000.0_reward_std             | 1.38763     |
+| update/                          |             |
+|    gradient_step                 | 42000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000445186 |
+|    loss_reward                   | 3.56178e-07 |
+|    policy_loss                   | 0.000445542 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 43          |
+| epoch_time                       | 34.4217     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 47.0933     |
+|    12000.0_normalized_score_std  | 1.32089     |
+|    12000.0_reward_mean           | 47.0933     |
+|    12000.0_reward_std            | 1.32089     |
+|    6000.0_normalized_score_mean  | 45.4317     |
+|    6000.0_normalized_score_std   | 1.03491     |
+|    6000.0_reward_mean            | 45.4317     |
+|    6000.0_reward_std             | 1.03491     |
+| update/                          |             |
+|    gradient_step                 | 43000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000461802 |
+|    loss_reward                   | 2.93948e-07 |
+|    policy_loss                   | 0.000462096 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 44          |
+| epoch_time                       | 34.0641     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 53.3159     |
+|    12000.0_normalized_score_std  | 1.85021     |
+|    12000.0_reward_mean           | 53.3159     |
+|    12000.0_reward_std            | 1.85021     |
+|    6000.0_normalized_score_mean  | 48.0184     |
+|    6000.0_normalized_score_std   | 1.10789     |
+|    6000.0_reward_mean            | 48.0184     |
+|    6000.0_reward_std             | 1.10789     |
+| update/                          |             |
+|    gradient_step                 | 44000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000453792 |
+|    loss_reward                   | 2.55886e-07 |
+|    policy_loss                   | 0.000454048 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 45          |
+| epoch_time                       | 33.3551     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 50.2123     |
+|    12000.0_normalized_score_std  | 1.8445      |
+|    12000.0_reward_mean           | 50.2123     |
+|    12000.0_reward_std            | 1.8445      |
+|    6000.0_normalized_score_mean  | 46.7254     |
+|    6000.0_normalized_score_std   | 1.27738     |
+|    6000.0_reward_mean            | 46.7254     |
+|    6000.0_reward_std             | 1.27738     |
+| update/                          |             |
+|    gradient_step                 | 45000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000460635 |
+|    loss_reward                   | 3.06692e-07 |
+|    policy_loss                   | 0.000460941 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 46          |
+| epoch_time                       | 34.0543     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 47.2502     |
+|    12000.0_normalized_score_std  | 0.683031    |
+|    12000.0_reward_mean           | 47.2502     |
+|    12000.0_reward_std            | 0.683031    |
+|    6000.0_normalized_score_mean  | 45.5273     |
+|    6000.0_normalized_score_std   | 1.39127     |
+|    6000.0_reward_mean            | 45.5273     |
+|    6000.0_reward_std             | 1.39127     |
+| update/                          |             |
+|    gradient_step                 | 46000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000452745 |
+|    loss_reward                   | 3.65068e-07 |
+|    policy_loss                   | 0.00045311  |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 47          |
+| epoch_time                       | 34.1975     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 45.4661     |
+|    12000.0_normalized_score_std  | 0.992723    |
+|    12000.0_reward_mean           | 45.4661     |
+|    12000.0_reward_std            | 0.992723    |
+|    6000.0_normalized_score_mean  | 43.3169     |
+|    6000.0_normalized_score_std   | 1.17618     |
+|    6000.0_reward_mean            | 43.3169     |
+|    6000.0_reward_std             | 1.17618     |
+| update/                          |             |
+|    gradient_step                 | 47000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000427054 |
+|    loss_reward                   | 2.53996e-07 |
+|    policy_loss                   | 0.000427308 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 48          |
+| epoch_time                       | 33.7436     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 55.576      |
+|    12000.0_normalized_score_std  | 1.46875     |
+|    12000.0_reward_mean           | 55.576      |
+|    12000.0_reward_std            | 1.46875     |
+|    6000.0_normalized_score_mean  | 51.9662     |
+|    6000.0_normalized_score_std   | 0.863264    |
+|    6000.0_reward_mean            | 51.9662     |
+|    6000.0_reward_std             | 0.863264    |
+| update/                          |             |
+|    gradient_step                 | 48000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000437992 |
+|    loss_reward                   | 2.6263e-07  |
+|    policy_loss                   | 0.000438255 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 49          |
+| epoch_time                       | 35.4025     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 48.8888     |
+|    12000.0_normalized_score_std  | 0.916515    |
+|    12000.0_reward_mean           | 48.8888     |
+|    12000.0_reward_std            | 0.916515    |
+|    6000.0_normalized_score_mean  | 46.1533     |
+|    6000.0_normalized_score_std   | 0.965369    |
+|    6000.0_reward_mean            | 46.1533     |
+|    6000.0_reward_std             | 0.965369    |
+| update/                          |             |
+|    gradient_step                 | 49000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000432621 |
+|    loss_reward                   | 3.64472e-07 |
+|    policy_loss                   | 0.000432986 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 50          |
+| epoch_time                       | 34.2875     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 57.7499     |
+|    12000.0_normalized_score_std  | 3.36089     |
+|    12000.0_reward_mean           | 57.7499     |
+|    12000.0_reward_std            | 3.36089     |
+|    6000.0_normalized_score_mean  | 53.6257     |
+|    6000.0_normalized_score_std   | 3.6853      |
+|    6000.0_reward_mean            | 53.6257     |
+|    6000.0_reward_std             | 3.6853      |
+| update/                          |             |
+|    gradient_step                 | 50000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000441206 |
+|    loss_reward                   | 2.40831e-07 |
+|    policy_loss                   | 0.000441447 |
+--------------------------------------------------
+Save policy on epoch 50.
+--------------------------------------------------
+| epoch                            | 51          |
+| epoch_time                       | 35.0416     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 73.2018     |
+|    12000.0_normalized_score_std  | 2.70671     |
+|    12000.0_reward_mean           | 73.2018     |
+|    12000.0_reward_std            | 2.70671     |
+|    6000.0_normalized_score_mean  | 67.5853     |
+|    6000.0_normalized_score_std   | 1.64541     |
+|    6000.0_reward_mean            | 67.5853     |
+|    6000.0_reward_std             | 1.64541     |
+| update/                          |             |
+|    gradient_step                 | 51000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000465834 |
+|    loss_reward                   | 2.24938e-07 |
+|    policy_loss                   | 0.000466058 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 52          |
+| epoch_time                       | 34.0963     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 51.7691     |
+|    12000.0_normalized_score_std  | 1.38482     |
+|    12000.0_reward_mean           | 51.7691     |
+|    12000.0_reward_std            | 1.38482     |
+|    6000.0_normalized_score_mean  | 47.1877     |
+|    6000.0_normalized_score_std   | 1.36249     |
+|    6000.0_reward_mean            | 47.1877     |
+|    6000.0_reward_std             | 1.36249     |
+| update/                          |             |
+|    gradient_step                 | 52000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000443455 |
+|    loss_reward                   | 2.69137e-07 |
+|    policy_loss                   | 0.000443724 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 53          |
+| epoch_time                       | 34.7276     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 41.953      |
+|    12000.0_normalized_score_std  | 1.99369     |
+|    12000.0_reward_mean           | 41.953      |
+|    12000.0_reward_std            | 1.99369     |
+|    6000.0_normalized_score_mean  | 40.806      |
+|    6000.0_normalized_score_std   | 0.646862    |
+|    6000.0_reward_mean            | 40.806      |
+|    6000.0_reward_std             | 0.646862    |
+| update/                          |             |
+|    gradient_step                 | 53000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00041691  |
+|    loss_reward                   | 2.73128e-07 |
+|    policy_loss                   | 0.000417183 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 54          |
+| epoch_time                       | 34.0392     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 54.0187     |
+|    12000.0_normalized_score_std  | 1.6596      |
+|    12000.0_reward_mean           | 54.0187     |
+|    12000.0_reward_std            | 1.6596      |
+|    6000.0_normalized_score_mean  | 50.0407     |
+|    6000.0_normalized_score_std   | 1.4172      |
+|    6000.0_reward_mean            | 50.0407     |
+|    6000.0_reward_std             | 1.4172      |
+| update/                          |             |
+|    gradient_step                 | 54000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000457476 |
+|    loss_reward                   | 2.39785e-07 |
+|    policy_loss                   | 0.000457716 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 55          |
+| epoch_time                       | 34.561      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 60.2322     |
+|    12000.0_normalized_score_std  | 1.27607     |
+|    12000.0_reward_mean           | 60.2322     |
+|    12000.0_reward_std            | 1.27607     |
+|    6000.0_normalized_score_mean  | 55.2251     |
+|    6000.0_normalized_score_std   | 1.85263     |
+|    6000.0_reward_mean            | 55.2251     |
+|    6000.0_reward_std             | 1.85263     |
+| update/                          |             |
+|    gradient_step                 | 55000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00044991  |
+|    loss_reward                   | 3.07488e-07 |
+|    policy_loss                   | 0.000450217 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 56          |
+| epoch_time                       | 34.6774     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 38.3004     |
+|    12000.0_normalized_score_std  | 1.31219     |
+|    12000.0_reward_mean           | 38.3004     |
+|    12000.0_reward_std            | 1.31219     |
+|    6000.0_normalized_score_mean  | 38.1222     |
+|    6000.0_normalized_score_std   | 1.19993     |
+|    6000.0_reward_mean            | 38.1222     |
+|    6000.0_reward_std             | 1.19993     |
+| update/                          |             |
+|    gradient_step                 | 56000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000452019 |
+|    loss_reward                   | 2.91685e-07 |
+|    policy_loss                   | 0.000452311 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 57          |
+| epoch_time                       | 34.0414     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 39.7697     |
+|    12000.0_normalized_score_std  | 0.466655    |
+|    12000.0_reward_mean           | 39.7697     |
+|    12000.0_reward_std            | 0.466655    |
+|    6000.0_normalized_score_mean  | 38.1063     |
+|    6000.0_normalized_score_std   | 0.62999     |
+|    6000.0_reward_mean            | 38.1063     |
+|    6000.0_reward_std             | 0.62999     |
+| update/                          |             |
+|    gradient_step                 | 57000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000451076 |
+|    loss_reward                   | 3.65575e-07 |
+|    policy_loss                   | 0.000451441 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 58          |
+| epoch_time                       | 33.9065     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 53.8462     |
+|    12000.0_normalized_score_std  | 1.99349     |
+|    12000.0_reward_mean           | 53.8462     |
+|    12000.0_reward_std            | 1.99349     |
+|    6000.0_normalized_score_mean  | 49.495      |
+|    6000.0_normalized_score_std   | 1.18002     |
+|    6000.0_reward_mean            | 49.495      |
+|    6000.0_reward_std             | 1.18002     |
+| update/                          |             |
+|    gradient_step                 | 58000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000412293 |
+|    loss_reward                   | 2.46358e-07 |
+|    policy_loss                   | 0.000412539 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 59          |
+| epoch_time                       | 33.1111     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 40.9803     |
+|    12000.0_normalized_score_std  | 0.57252     |
+|    12000.0_reward_mean           | 40.9803     |
+|    12000.0_reward_std            | 0.57252     |
+|    6000.0_normalized_score_mean  | 38.9369     |
+|    6000.0_normalized_score_std   | 0.643174    |
+|    6000.0_reward_mean            | 38.9369     |
+|    6000.0_reward_std             | 0.643174    |
+| update/                          |             |
+|    gradient_step                 | 59000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000431096 |
+|    loss_reward                   | 2.75492e-07 |
+|    policy_loss                   | 0.000431371 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 60          |
+| epoch_time                       | 33.9712     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 51.4281     |
+|    12000.0_normalized_score_std  | 1.13404     |
+|    12000.0_reward_mean           | 51.4281     |
+|    12000.0_reward_std            | 1.13404     |
+|    6000.0_normalized_score_mean  | 47.7065     |
+|    6000.0_normalized_score_std   | 0.957388    |
+|    6000.0_reward_mean            | 47.7065     |
+|    6000.0_reward_std             | 0.957388    |
+| update/                          |             |
+|    gradient_step                 | 60000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000427392 |
+|    loss_reward                   | 2.82857e-07 |
+|    policy_loss                   | 0.000427675 |
+--------------------------------------------------
+Save policy on epoch 60.
+--------------------------------------------------
+| epoch                            | 61          |
+| epoch_time                       | 33.9219     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 50.3759     |
+|    12000.0_normalized_score_std  | 0.78664     |
+|    12000.0_reward_mean           | 50.3759     |
+|    12000.0_reward_std            | 0.78664     |
+|    6000.0_normalized_score_mean  | 46.9373     |
+|    6000.0_normalized_score_std   | 0.694978    |
+|    6000.0_reward_mean            | 46.9373     |
+|    6000.0_reward_std             | 0.694978    |
+| update/                          |             |
+|    gradient_step                 | 61000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000419066 |
+|    loss_reward                   | 2.72541e-07 |
+|    policy_loss                   | 0.000419338 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 62          |
+| epoch_time                       | 33.227      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 42.7185     |
+|    12000.0_normalized_score_std  | 0.78155     |
+|    12000.0_reward_mean           | 42.7185     |
+|    12000.0_reward_std            | 0.78155     |
+|    6000.0_normalized_score_mean  | 42.6762     |
+|    6000.0_normalized_score_std   | 0.819482    |
+|    6000.0_reward_mean            | 42.6762     |
+|    6000.0_reward_std             | 0.819482    |
+| update/                          |             |
+|    gradient_step                 | 62000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000436768 |
+|    loss_reward                   | 2.08599e-07 |
+|    policy_loss                   | 0.000436977 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 63          |
+| epoch_time                       | 33.9994     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 72.5982     |
+|    12000.0_normalized_score_std  | 2.41811     |
+|    12000.0_reward_mean           | 72.5982     |
+|    12000.0_reward_std            | 2.41811     |
+|    6000.0_normalized_score_mean  | 68.3989     |
+|    6000.0_normalized_score_std   | 3.67948     |
+|    6000.0_reward_mean            | 68.3989     |
+|    6000.0_reward_std             | 3.67948     |
+| update/                          |             |
+|    gradient_step                 | 63000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000468154 |
+|    loss_reward                   | 2.08619e-07 |
+|    policy_loss                   | 0.000468363 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 64          |
+| epoch_time                       | 34.0141     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 39.4483     |
+|    12000.0_normalized_score_std  | 1.16098     |
+|    12000.0_reward_mean           | 39.4483     |
+|    12000.0_reward_std            | 1.16098     |
+|    6000.0_normalized_score_mean  | 38.5847     |
+|    6000.0_normalized_score_std   | 0.699682    |
+|    6000.0_reward_mean            | 38.5847     |
+|    6000.0_reward_std             | 0.699682    |
+| update/                          |             |
+|    gradient_step                 | 64000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000419026 |
+|    loss_reward                   | 2.33603e-07 |
+|    policy_loss                   | 0.00041926  |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 65          |
+| epoch_time                       | 33.1084     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 32.8448     |
+|    12000.0_normalized_score_std  | 0.381374    |
+|    12000.0_reward_mean           | 32.8448     |
+|    12000.0_reward_std            | 0.381374    |
+|    6000.0_normalized_score_mean  | 35.4925     |
+|    6000.0_normalized_score_std   | 0.746662    |
+|    6000.0_reward_mean            | 35.4925     |
+|    6000.0_reward_std             | 0.746662    |
+| update/                          |             |
+|    gradient_step                 | 65000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000417788 |
+|    loss_reward                   | 2.70731e-07 |
+|    policy_loss                   | 0.000418059 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 66          |
+| epoch_time                       | 34.0147     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 54.2571     |
+|    12000.0_normalized_score_std  | 1.35522     |
+|    12000.0_reward_mean           | 54.2571     |
+|    12000.0_reward_std            | 1.35522     |
+|    6000.0_normalized_score_mean  | 50.319      |
+|    6000.0_normalized_score_std   | 0.762967    |
+|    6000.0_reward_mean            | 50.319      |
+|    6000.0_reward_std             | 0.762967    |
+| update/                          |             |
+|    gradient_step                 | 66000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000449212 |
+|    loss_reward                   | 2.42148e-07 |
+|    policy_loss                   | 0.000449454 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 67          |
+| epoch_time                       | 33.9595     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 38.1177     |
+|    12000.0_normalized_score_std  | 0.558019    |
+|    12000.0_reward_mean           | 38.1177     |
+|    12000.0_reward_std            | 0.558019    |
+|    6000.0_normalized_score_mean  | 38.4216     |
+|    6000.0_normalized_score_std   | 0.712918    |
+|    6000.0_reward_mean            | 38.4216     |
+|    6000.0_reward_std             | 0.712918    |
+| update/                          |             |
+|    gradient_step                 | 67000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000481535 |
+|    loss_reward                   | 2.29613e-07 |
+|    policy_loss                   | 0.000481765 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 68          |
+| epoch_time                       | 33.1524     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 34.6835     |
+|    12000.0_normalized_score_std  | 0.639373    |
+|    12000.0_reward_mean           | 34.6835     |
+|    12000.0_reward_std            | 0.639373    |
+|    6000.0_normalized_score_mean  | 34.9818     |
+|    6000.0_normalized_score_std   | 0.578699    |
+|    6000.0_reward_mean            | 34.9818     |
+|    6000.0_reward_std             | 0.578699    |
+| update/                          |             |
+|    gradient_step                 | 68000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000420479 |
+|    loss_reward                   | 2.2847e-07  |
+|    policy_loss                   | 0.000420707 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 69          |
+| epoch_time                       | 33.929      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 46.1273     |
+|    12000.0_normalized_score_std  | 1.56856     |
+|    12000.0_reward_mean           | 46.1273     |
+|    12000.0_reward_std            | 1.56856     |
+|    6000.0_normalized_score_mean  | 49.3514     |
+|    6000.0_normalized_score_std   | 1.04672     |
+|    6000.0_reward_mean            | 49.3514     |
+|    6000.0_reward_std             | 1.04672     |
+| update/                          |             |
+|    gradient_step                 | 69000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00043896  |
+|    loss_reward                   | 2.39337e-07 |
+|    policy_loss                   | 0.000439199 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 70          |
+| epoch_time                       | 33.9473     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 39.9094     |
+|    12000.0_normalized_score_std  | 0.702538    |
+|    12000.0_reward_mean           | 39.9094     |
+|    12000.0_reward_std            | 0.702538    |
+|    6000.0_normalized_score_mean  | 43.4905     |
+|    6000.0_normalized_score_std   | 0.783714    |
+|    6000.0_reward_mean            | 43.4905     |
+|    6000.0_reward_std             | 0.783714    |
+| update/                          |             |
+|    gradient_step                 | 70000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000408824 |
+|    loss_reward                   | 2.25309e-07 |
+|    policy_loss                   | 0.000409049 |
+--------------------------------------------------
+Save policy on epoch 70.
+--------------------------------------------------
+| epoch                            | 71          |
+| epoch_time                       | 33.2687     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 46.1776     |
+|    12000.0_normalized_score_std  | 0.764875    |
+|    12000.0_reward_mean           | 46.1776     |
+|    12000.0_reward_std            | 0.764875    |
+|    6000.0_normalized_score_mean  | 46.453      |
+|    6000.0_normalized_score_std   | 0.837608    |
+|    6000.0_reward_mean            | 46.453      |
+|    6000.0_reward_std             | 0.837608    |
+| update/                          |             |
+|    gradient_step                 | 71000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00041374  |
+|    loss_reward                   | 2.21756e-07 |
+|    policy_loss                   | 0.000413961 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 72          |
+| epoch_time                       | 33.8749     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 41.3221     |
+|    12000.0_normalized_score_std  | 0.562882    |
+|    12000.0_reward_mean           | 41.3221     |
+|    12000.0_reward_std            | 0.562882    |
+|    6000.0_normalized_score_mean  | 43.8061     |
+|    6000.0_normalized_score_std   | 0.917517    |
+|    6000.0_reward_mean            | 43.8061     |
+|    6000.0_reward_std             | 0.917517    |
+| update/                          |             |
+|    gradient_step                 | 72000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000418015 |
+|    loss_reward                   | 1.74411e-07 |
+|    policy_loss                   | 0.000418189 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 73          |
+| epoch_time                       | 33.912      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 42.3671     |
+|    12000.0_normalized_score_std  | 0.470078    |
+|    12000.0_reward_mean           | 42.3671     |
+|    12000.0_reward_std            | 0.470078    |
+|    6000.0_normalized_score_mean  | 41.4966     |
+|    6000.0_normalized_score_std   | 0.366397    |
+|    6000.0_reward_mean            | 41.4966     |
+|    6000.0_reward_std             | 0.366397    |
+| update/                          |             |
+|    gradient_step                 | 73000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000451568 |
+|    loss_reward                   | 2.66249e-07 |
+|    policy_loss                   | 0.000451835 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 74          |
+| epoch_time                       | 33.5929     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 39.3945     |
+|    12000.0_normalized_score_std  | 0.414981    |
+|    12000.0_reward_mean           | 39.3945     |
+|    12000.0_reward_std            | 0.414981    |
+|    6000.0_normalized_score_mean  | 41.9699     |
+|    6000.0_normalized_score_std   | 0.928265    |
+|    6000.0_reward_mean            | 41.9699     |
+|    6000.0_reward_std             | 0.928265    |
+| update/                          |             |
+|    gradient_step                 | 74000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000427388 |
+|    loss_reward                   | 2.62605e-07 |
+|    policy_loss                   | 0.000427651 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 75          |
+| epoch_time                       | 34.2566     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 29.8547     |
+|    12000.0_normalized_score_std  | 0.6211      |
+|    12000.0_reward_mean           | 29.8547     |
+|    12000.0_reward_std            | 0.6211      |
+|    6000.0_normalized_score_mean  | 33.1616     |
+|    6000.0_normalized_score_std   | 0.431554    |
+|    6000.0_reward_mean            | 33.1616     |
+|    6000.0_reward_std             | 0.431554    |
+| update/                          |             |
+|    gradient_step                 | 75000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000436765 |
+|    loss_reward                   | 2.11079e-07 |
+|    policy_loss                   | 0.000436976 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 76          |
+| epoch_time                       | 33.9073     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 37.6819     |
+|    12000.0_normalized_score_std  | 0.541215    |
+|    12000.0_reward_mean           | 37.6819     |
+|    12000.0_reward_std            | 0.541215    |
+|    6000.0_normalized_score_mean  | 39.802      |
+|    6000.0_normalized_score_std   | 0.461386    |
+|    6000.0_reward_mean            | 39.802      |
+|    6000.0_reward_std             | 0.461386    |
+| update/                          |             |
+|    gradient_step                 | 76000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000413534 |
+|    loss_reward                   | 1.85177e-07 |
+|    policy_loss                   | 0.000413719 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 77          |
+| epoch_time                       | 34.1952     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 45.3245     |
+|    12000.0_normalized_score_std  | 0.929699    |
+|    12000.0_reward_mean           | 45.3245     |
+|    12000.0_reward_std            | 0.929699    |
+|    6000.0_normalized_score_mean  | 51.3502     |
+|    6000.0_normalized_score_std   | 0.78264     |
+|    6000.0_reward_mean            | 51.3502     |
+|    6000.0_reward_std             | 0.78264     |
+| update/                          |             |
+|    gradient_step                 | 77000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000452954 |
+|    loss_reward                   | 2.61721e-07 |
+|    policy_loss                   | 0.000453216 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 78          |
+| epoch_time                       | 34.4387     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 62.31       |
+|    12000.0_normalized_score_std  | 6.37402     |
+|    12000.0_reward_mean           | 62.31       |
+|    12000.0_reward_std            | 6.37402     |
+|    6000.0_normalized_score_mean  | 68.4437     |
+|    6000.0_normalized_score_std   | 1.83145     |
+|    6000.0_reward_mean            | 68.4437     |
+|    6000.0_reward_std             | 1.83145     |
+| update/                          |             |
+|    gradient_step                 | 78000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00041644  |
+|    loss_reward                   | 1.63185e-07 |
+|    policy_loss                   | 0.000416604 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 79          |
+| epoch_time                       | 33.5371     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 37.3344     |
+|    12000.0_normalized_score_std  | 1.02981     |
+|    12000.0_reward_mean           | 37.3344     |
+|    12000.0_reward_std            | 1.02981     |
+|    6000.0_normalized_score_mean  | 37.5302     |
+|    6000.0_normalized_score_std   | 0.859703    |
+|    6000.0_reward_mean            | 37.5302     |
+|    6000.0_reward_std             | 0.859703    |
+| update/                          |             |
+|    gradient_step                 | 79000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000432013 |
+|    loss_reward                   | 3.16735e-07 |
+|    policy_loss                   | 0.00043233  |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 80          |
+| epoch_time                       | 33.916      |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 35.7461     |
+|    12000.0_normalized_score_std  | 0.424649    |
+|    12000.0_reward_mean           | 35.7461     |
+|    12000.0_reward_std            | 0.424649    |
+|    6000.0_normalized_score_mean  | 35.8908     |
+|    6000.0_normalized_score_std   | 0.803079    |
+|    6000.0_reward_mean            | 35.8908     |
+|    6000.0_reward_std             | 0.803079    |
+| update/                          |             |
+|    gradient_step                 | 80000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000450546 |
+|    loss_reward                   | 1.93359e-07 |
+|    policy_loss                   | 0.00045074  |
+--------------------------------------------------
+Save policy on epoch 80.
+--------------------------------------------------
+| epoch                            | 81          |
+| epoch_time                       | 34.1472     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 32.1418     |
+|    12000.0_normalized_score_std  | 0.532026    |
+|    12000.0_reward_mean           | 32.1418     |
+|    12000.0_reward_std            | 0.532026    |
+|    6000.0_normalized_score_mean  | 35.5939     |
+|    6000.0_normalized_score_std   | 0.444506    |
+|    6000.0_reward_mean            | 35.5939     |
+|    6000.0_reward_std             | 0.444506    |
+| update/                          |             |
+|    gradient_step                 | 81000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000431756 |
+|    loss_reward                   | 2.23723e-07 |
+|    policy_loss                   | 0.000431979 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 82          |
+| epoch_time                       | 34.4936     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 38.6009     |
+|    12000.0_normalized_score_std  | 0.699464    |
+|    12000.0_reward_mean           | 38.6009     |
+|    12000.0_reward_std            | 0.699464    |
+|    6000.0_normalized_score_mean  | 40.636      |
+|    6000.0_normalized_score_std   | 0.491254    |
+|    6000.0_reward_mean            | 40.636      |
+|    6000.0_reward_std             | 0.491254    |
+| update/                          |             |
+|    gradient_step                 | 82000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000442339 |
+|    loss_reward                   | 2.10728e-07 |
+|    policy_loss                   | 0.000442549 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 83          |
+| epoch_time                       | 33.9671     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 39.4032     |
+|    12000.0_normalized_score_std  | 0.413152    |
+|    12000.0_reward_mean           | 39.4032     |
+|    12000.0_reward_std            | 0.413152    |
+|    6000.0_normalized_score_mean  | 39.347      |
+|    6000.0_normalized_score_std   | 0.712466    |
+|    6000.0_reward_mean            | 39.347      |
+|    6000.0_reward_std             | 0.712466    |
+| update/                          |             |
+|    gradient_step                 | 83000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000431742 |
+|    loss_reward                   | 2.08649e-07 |
+|    policy_loss                   | 0.000431951 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 84          |
+| epoch_time                       | 33.9372     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 42.1076     |
+|    12000.0_normalized_score_std  | 0.580565    |
+|    12000.0_reward_mean           | 42.1076     |
+|    12000.0_reward_std            | 0.580565    |
+|    6000.0_normalized_score_mean  | 44.3275     |
+|    6000.0_normalized_score_std   | 0.949631    |
+|    6000.0_reward_mean            | 44.3275     |
+|    6000.0_reward_std             | 0.949631    |
+| update/                          |             |
+|    gradient_step                 | 84000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000426159 |
+|    loss_reward                   | 2.34925e-07 |
+|    policy_loss                   | 0.000426394 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 85          |
+| epoch_time                       | 33.7107     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 38.1731     |
+|    12000.0_normalized_score_std  | 0.682133    |
+|    12000.0_reward_mean           | 38.1731     |
+|    12000.0_reward_std            | 0.682133    |
+|    6000.0_normalized_score_mean  | 39.73       |
+|    6000.0_normalized_score_std   | 0.749116    |
+|    6000.0_reward_mean            | 39.73       |
+|    6000.0_reward_std             | 0.749116    |
+| update/                          |             |
+|    gradient_step                 | 85000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000407121 |
+|    loss_reward                   | 2.34295e-07 |
+|    policy_loss                   | 0.000407355 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 86          |
+| epoch_time                       | 33.9158     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 44.8475     |
+|    12000.0_normalized_score_std  | 0.538038    |
+|    12000.0_reward_mean           | 44.8475     |
+|    12000.0_reward_std            | 0.538038    |
+|    6000.0_normalized_score_mean  | 49.0055     |
+|    6000.0_normalized_score_std   | 0.592047    |
+|    6000.0_reward_mean            | 49.0055     |
+|    6000.0_reward_std             | 0.592047    |
+| update/                          |             |
+|    gradient_step                 | 86000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000426289 |
+|    loss_reward                   | 2.30135e-07 |
+|    policy_loss                   | 0.000426519 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 87          |
+| epoch_time                       | 33.9237     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 37.7424     |
+|    12000.0_normalized_score_std  | 0.454768    |
+|    12000.0_reward_mean           | 37.7424     |
+|    12000.0_reward_std            | 0.454768    |
+|    6000.0_normalized_score_mean  | 40.8112     |
+|    6000.0_normalized_score_std   | 0.460632    |
+|    6000.0_reward_mean            | 40.8112     |
+|    6000.0_reward_std             | 0.460632    |
+| update/                          |             |
+|    gradient_step                 | 87000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000430098 |
+|    loss_reward                   | 1.96209e-07 |
+|    policy_loss                   | 0.000430294 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 88          |
+| epoch_time                       | 33.1034     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 39.463      |
+|    12000.0_normalized_score_std  | 0.537885    |
+|    12000.0_reward_mean           | 39.463      |
+|    12000.0_reward_std            | 0.537885    |
+|    6000.0_normalized_score_mean  | 41.077      |
+|    6000.0_normalized_score_std   | 0.415051    |
+|    6000.0_reward_mean            | 41.077      |
+|    6000.0_reward_std             | 0.415051    |
+| update/                          |             |
+|    gradient_step                 | 88000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000436372 |
+|    loss_reward                   | 3.00481e-07 |
+|    policy_loss                   | 0.000436673 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 89          |
+| epoch_time                       | 34.1168     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 41.9293     |
+|    12000.0_normalized_score_std  | 0.560777    |
+|    12000.0_reward_mean           | 41.9293     |
+|    12000.0_reward_std            | 0.560777    |
+|    6000.0_normalized_score_mean  | 44.4231     |
+|    6000.0_normalized_score_std   | 0.745742    |
+|    6000.0_reward_mean            | 44.4231     |
+|    6000.0_reward_std             | 0.745742    |
+| update/                          |             |
+|    gradient_step                 | 89000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000404636 |
+|    loss_reward                   | 2.66549e-07 |
+|    policy_loss                   | 0.000404903 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 90          |
+| epoch_time                       | 33.8402     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 36.0404     |
+|    12000.0_normalized_score_std  | 0.173769    |
+|    12000.0_reward_mean           | 36.0404     |
+|    12000.0_reward_std            | 0.173769    |
+|    6000.0_normalized_score_mean  | 39.2091     |
+|    6000.0_normalized_score_std   | 0.209061    |
+|    6000.0_reward_mean            | 39.2091     |
+|    6000.0_reward_std             | 0.209061    |
+| update/                          |             |
+|    gradient_step                 | 90000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000429639 |
+|    loss_reward                   | 2.27302e-07 |
+|    policy_loss                   | 0.000429866 |
+--------------------------------------------------
+Save policy on epoch 90.
+--------------------------------------------------
+| epoch                            | 91          |
+| epoch_time                       | 34.2276     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 37.6352     |
+|    12000.0_normalized_score_std  | 0.24528     |
+|    12000.0_reward_mean           | 37.6352     |
+|    12000.0_reward_std            | 0.24528     |
+|    6000.0_normalized_score_mean  | 39.9796     |
+|    6000.0_normalized_score_std   | 0.541302    |
+|    6000.0_reward_mean            | 39.9796     |
+|    6000.0_reward_std             | 0.541302    |
+| update/                          |             |
+|    gradient_step                 | 91000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000428948 |
+|    loss_reward                   | 2.00278e-07 |
+|    policy_loss                   | 0.000429148 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 92          |
+| epoch_time                       | 33.8758     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 42.3507     |
+|    12000.0_normalized_score_std  | 1.13685     |
+|    12000.0_reward_mean           | 42.3507     |
+|    12000.0_reward_std            | 1.13685     |
+|    6000.0_normalized_score_mean  | 41.081      |
+|    6000.0_normalized_score_std   | 0.573257    |
+|    6000.0_reward_mean            | 41.081      |
+|    6000.0_reward_std             | 0.573257    |
+| update/                          |             |
+|    gradient_step                 | 92000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000418477 |
+|    loss_reward                   | 1.82059e-07 |
+|    policy_loss                   | 0.000418659 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 93          |
+| epoch_time                       | 32.8646     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 36.409      |
+|    12000.0_normalized_score_std  | 0.374487    |
+|    12000.0_reward_mean           | 36.409      |
+|    12000.0_reward_std            | 0.374487    |
+|    6000.0_normalized_score_mean  | 36.8515     |
+|    6000.0_normalized_score_std   | 0.46594     |
+|    6000.0_reward_mean            | 36.8515     |
+|    6000.0_reward_std             | 0.46594     |
+| update/                          |             |
+|    gradient_step                 | 93000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000428682 |
+|    loss_reward                   | 1.97035e-07 |
+|    policy_loss                   | 0.000428879 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 94          |
+| epoch_time                       | 33.7154     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 41.1241     |
+|    12000.0_normalized_score_std  | 0.998562    |
+|    12000.0_reward_mean           | 41.1241     |
+|    12000.0_reward_std            | 0.998562    |
+|    6000.0_normalized_score_mean  | 40.5908     |
+|    6000.0_normalized_score_std   | 0.234298    |
+|    6000.0_reward_mean            | 40.5908     |
+|    6000.0_reward_std             | 0.234298    |
+| update/                          |             |
+|    gradient_step                 | 94000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000419693 |
+|    loss_reward                   | 1.99683e-07 |
+|    policy_loss                   | 0.000419893 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 95          |
+| epoch_time                       | 33.9259     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 57.0577     |
+|    12000.0_normalized_score_std  | 0.996774    |
+|    12000.0_reward_mean           | 57.0577     |
+|    12000.0_reward_std            | 0.996774    |
+|    6000.0_normalized_score_mean  | 56.1641     |
+|    6000.0_normalized_score_std   | 2.6113      |
+|    6000.0_reward_mean            | 56.1641     |
+|    6000.0_reward_std             | 2.6113      |
+| update/                          |             |
+|    gradient_step                 | 95000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000440926 |
+|    loss_reward                   | 1.79386e-07 |
+|    policy_loss                   | 0.000441106 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 96          |
+| epoch_time                       | 33.6771     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 56.1074     |
+|    12000.0_normalized_score_std  | 0.744656    |
+|    12000.0_reward_mean           | 56.1074     |
+|    12000.0_reward_std            | 0.744656    |
+|    6000.0_normalized_score_mean  | 51.8248     |
+|    6000.0_normalized_score_std   | 0.66322     |
+|    6000.0_reward_mean            | 51.8248     |
+|    6000.0_reward_std             | 0.66322     |
+| update/                          |             |
+|    gradient_step                 | 96000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000417313 |
+|    loss_reward                   | 1.88864e-07 |
+|    policy_loss                   | 0.000417502 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 97          |
+| epoch_time                       | 34.3697     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 42.0033     |
+|    12000.0_normalized_score_std  | 0.398787    |
+|    12000.0_reward_mean           | 42.0033     |
+|    12000.0_reward_std            | 0.398787    |
+|    6000.0_normalized_score_mean  | 40.505      |
+|    6000.0_normalized_score_std   | 0.715855    |
+|    6000.0_reward_mean            | 40.505      |
+|    6000.0_reward_std             | 0.715855    |
+| update/                          |             |
+|    gradient_step                 | 97000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000434615 |
+|    loss_reward                   | 2.35389e-07 |
+|    policy_loss                   | 0.00043485  |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 98          |
+| epoch_time                       | 33.3904     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 32.9429     |
+|    12000.0_normalized_score_std  | 0.371103    |
+|    12000.0_reward_mean           | 32.9429     |
+|    12000.0_reward_std            | 0.371103    |
+|    6000.0_normalized_score_mean  | 32.3355     |
+|    6000.0_normalized_score_std   | 0.386691    |
+|    6000.0_reward_mean            | 32.3355     |
+|    6000.0_reward_std             | 0.386691    |
+| update/                          |             |
+|    gradient_step                 | 98000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000437049 |
+|    loss_reward                   | 2.11022e-07 |
+|    policy_loss                   | 0.00043726  |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 99          |
+| epoch_time                       | 34.4002     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 40.7833     |
+|    12000.0_normalized_score_std  | 0.52907     |
+|    12000.0_reward_mean           | 40.7833     |
+|    12000.0_reward_std            | 0.52907     |
+|    6000.0_normalized_score_mean  | 42.0214     |
+|    6000.0_normalized_score_std   | 0.386569    |
+|    6000.0_reward_mean            | 42.0214     |
+|    6000.0_reward_std             | 0.386569    |
+| update/                          |             |
+|    gradient_step                 | 99000       |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.000426583 |
+|    loss_reward                   | 2.46354e-07 |
+|    policy_loss                   | 0.000426829 |
+--------------------------------------------------
+--------------------------------------------------
+| epoch                            | 100         |
+| epoch_time                       | 34.5844     |
+| eval/                            |             |
+|    12000.0_normalized_score_mean | 39.5448     |
+|    12000.0_normalized_score_std  | 0.303702    |
+|    12000.0_reward_mean           | 39.5448     |
+|    12000.0_reward_std            | 0.303702    |
+|    6000.0_normalized_score_mean  | 40.9985     |
+|    6000.0_normalized_score_std   | 0.440767    |
+|    6000.0_reward_mean            | 40.9985     |
+|    6000.0_reward_std             | 0.440767    |
+| update/                          |             |
+|    gradient_step                 | 100000      |
+|    learning_rate                 | 0.0001      |
+|    loss_action                   | 0.00041677  |
+|    loss_reward                   | 2.61962e-07 |
+|    policy_loss                   | 0.000417032 |
+--------------------------------------------------
+Save policy on epoch 100.

@@ -132,11 +132,12 @@ class MLPBlock(nn.Module):
 
 def build_rel_pos(seq_len, device):
     # Return the (cos, sin) relative position encodings needed by apply_rotary_emb
-    inv_freq = 1.0 / (10000 ** (torch.arange(0, seq_len, 2).float() / seq_len))
+    inv_freq = 1.0 / (10000 ** (torch.arange(0, seq_len, 2, device=device).float() / seq_len))
     pos_seq = torch.arange(seq_len, device=device).float()
     sinusoid_inp = torch.einsum('i,j->ij', pos_seq, inv_freq)
     sin, cos = sinusoid_inp.sin(), sinusoid_inp.cos()
     return cos, sin
+
 
 
 class TransformerBlock(nn.Module):
@@ -206,9 +207,9 @@ class TransformerBlock(nn.Module):
               attn_mask=causal_mask.float(),  # MultiheadDiffAttn expects float mask
           )
 
-      if self.batch_first and is_batched:
-          attention_out = attention_out.transpose(1, 0)
-
+      #if self.batch_first and is_batched:
+      #    attention_out = attention_out.transpose(1, 0)
+      
       x = x + self.drop(attention_out)
       x = x + self.mlp(self.norm2(x))
       return x
