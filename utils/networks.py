@@ -207,8 +207,8 @@ class TransformerBlock(nn.Module):
               attn_mask=causal_mask.float(),  # MultiheadDiffAttn expects float mask
           )
 
-      #if self.batch_first and is_batched:
-      #    attention_out = attention_out.transpose(1, 0)
+      if self.batch_first and is_batched and isinstance(self.attention, nn.MultiheadAttention):
+         attention_out = attention_out.transpose(1, 0)
       
       x = x + self.drop(attention_out)
       x = x + self.mlp(self.norm2(x))
