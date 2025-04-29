@@ -250,7 +250,8 @@ def wandb_init(config) -> None:
 
 def load_clean_dataset(config):
     if config.sample_ratio < 1.0:
-        dataset_path = os.path.join(config.dataset_path, "original", f"{config.env}_ratio_{config.sample_ratio}.pt")
+        #dataset_path = os.path.join(config.dataset_path, "original", f"{config.env}_ratio_{config.sample_ratio}.pt")
+        dataset_path = '/content/Diff_RDT/your_dataset_path/log_attack_data/Walker2d-v4/random_0_ratio_0.1_obs_1.0_0.3.pth'
         dataset = torch.load(dataset_path)
     else:
         h5path = (

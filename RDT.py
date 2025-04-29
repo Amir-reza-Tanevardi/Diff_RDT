@@ -474,6 +474,10 @@ def train(config: TrainConfig, logger: Logger):
 
 
 def test(config: TrainConfig, logger: Logger):
+    config.checkpoint_dir = "/content/Diff_RDT/results/corruption/2024062305/Walker2d-v4/RDT_Walker2d-v4_rnd_obs_0_20250429124609_87cd9844-7ff5-4862-8b6f-1be7c9e35567_diff_att_8"
+    config.use_diff_att = True
+    config.num_heads = 8
+    print(f"HERE: {config.checkpoint_dir}")
     # Set seeds
     func.set_seed(config.seed)
 
@@ -501,7 +505,7 @@ def test(config: TrainConfig, logger: Logger):
 
     # model
     model = set_model(config)
-    model.load_state_dict(torch.load(os.path.join(config.checkpoint_dir, "100.pt")))
+    model.load_state_dict(torch.load(os.path.join(config.checkpoint_dir, "policy_best.pth")))
     model.eval()
     logger.info(f"Network: \n{str(model)}")
     logger.info(f"Total parameters: {sum(p.numel() for p in model.parameters())}")
