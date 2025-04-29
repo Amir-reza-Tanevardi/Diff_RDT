@@ -130,13 +130,24 @@ class MLPBlock(nn.Module):
         return out
 
 
-def build_rel_pos(seq_len, device):
-    # Return the (cos, sin) relative position encodings needed by apply_rotary_emb
-    inv_freq = 1.0 / (10000 ** (torch.arange(0, seq_len, 2, device=device).float() / seq_len))
+def build_rel_pos(seq_len: int, rotary_dim: int, device=None):
+    """
+    seq_len: the maximum sequence length you’ll ever see
+    rotary_dim: the number of channels in each head you want to rotate (must be even)
+    """
+    assert rotary_dim % 2 == 0, "rotary_dim must be an even number"
+    # frequencies for each pair of dims:
+    inv_freq = 1.0 / (
+        10000 ** (torch.arange(0, rotary_dim, 2, device=device).float() / rotary_dim)
+    )
+    # positions
     pos_seq = torch.arange(seq_len, device=device).float()
-    sinusoid_inp = torch.einsum('i,j->ij', pos_seq, inv_freq)
-    sin, cos = sinusoid_inp.sin(), sinusoid_inp.cos()
+    # outer product -> (seq_len, rotary_dim/2)
+    sinusoid_inp = torch.einsum("i,j->ij", pos_seq, inv_freq)
+    sin = sinusoid_inp.sin()
+    cos = sinusoid_inp.cos()
     return cos, sin
+
 
 
 
@@ -157,7 +168,7 @@ class TransformerBlock(nn.Module):
         self.drop = nn.Dropout(residual_dropout)
         
         if use_diff_att:
-          num_heads = 1 if num_heads == 1 else num_heads // 2
+          #num_heads = 1 if num_heads == 1 else num_heads // 2
           self.attention = MultiheadDiffAttn(
               embed_dim = embedding_dim, num_heads = num_heads, depth=idx# , batch_first=True
           )
@@ -200,7 +211,7 @@ class TransformerBlock(nn.Module):
       else:  # assume it's MultiheadDiffAttn
           if self.batch_first and is_batched:
               norm_x = norm_x.transpose(0, 1)  # [batch_size, seq_len, emb_dim] for MultiheadDiffAttn
-          rel_pos = build_rel_pos(norm_x.shape[1], norm_x.device)  # <--- YOU NEED TO PROVIDE THIS FUNCTION
+          rel_pos = build_rel_pos(norm_x.shape[1],self.attention.head_dim ,norm_x.device)  # <--- YOU NEED TO PROVIDE THIS FUNCTION
           attention_out = self.attention(
               x=norm_x,
               rel_pos=rel_pos,
