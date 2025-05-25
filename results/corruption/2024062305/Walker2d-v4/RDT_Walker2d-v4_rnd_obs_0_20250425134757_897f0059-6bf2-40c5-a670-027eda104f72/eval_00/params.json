@@ -4,6 +4,7 @@
     "device": "cuda",
     "num_epochs": "100",
     "num_updates_on_epoch": "1000",
+    "use_diff_att": "False",
     "embedding_dim": "128",
     "num_layers": "3",
     "num_heads": "1",

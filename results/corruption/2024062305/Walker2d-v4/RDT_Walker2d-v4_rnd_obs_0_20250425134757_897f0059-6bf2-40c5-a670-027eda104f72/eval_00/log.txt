@@ -4,6 +4,7 @@ n_episodes: 100
 device: cuda
 num_epochs: 100
 num_updates_on_epoch: 1000
+use_diff_att: False
 embedding_dim: 128
 num_layers: 3
 num_heads: 1
@@ -62,17 +63,17 @@ corruption_rate: 0.3
 use_original: 0
 same_index: 0
 froce_attack: 0
-Load new dataset from your_dataset_path/log_attack_data/Walker2d-v4/random_0_ratio_0.1_obs_1.0_0.3.pth
+Load new dataset from your_dataset_path/log_attack_data/Walker2d-v4/random_7_ratio_0.1_obs_1.0_0.3.pth
 random observations
 Attack name: _ratio_0.1_obs_1.0_0.3
 Dataset: 104 trajectories
-State mean: [[ 1.22334051e+00 -1.67085797e-02 -4.14643609e-01 -6.83707640e-03
-   2.56521932e-01 -9.76107965e-02 -5.49006676e-01  1.15862676e-01
-   4.96850683e+00 -2.91792073e-03  1.98722032e-03 -4.33489993e-02
-  -2.10986769e-02  6.35574327e-01 -1.25708428e-02  7.40375992e-02
-   5.35483126e-01]], std: [[0.06329407 0.23992098 0.41358941 0.09799204 0.64112285 0.21625538
-  0.4059761  0.67789316 1.40967205 0.67806036 2.35349475 3.93122688
-  1.96666773 6.00912943 3.11459959 5.43827092 6.79833387]]
+State mean: [[ 1.22343121e+00 -1.60843212e-02 -4.14056742e-01 -6.86650995e-03
+   2.57218710e-01 -9.77953437e-02 -5.49538368e-01  1.16362637e-01
+   4.96908438e+00 -3.20697788e-03  3.53868854e-03 -5.01834185e-02
+  -2.41093220e-02  6.34670920e-01 -1.65051532e-02  7.73467306e-02
+   5.38554515e-01]], std: [[0.06327234 0.23987227 0.41314041 0.09798816 0.6417176  0.21635535
+  0.4056316  0.67894117 1.40988678 0.6786803  2.34900562 3.93076668
+  1.96591348 6.01000839 3.11615918 5.44557899 6.79806155]]
 Network: 
 DecisionTransformer(
   (emb_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
@@ -86,8 +87,12 @@ DecisionTransformer(
       (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
       (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
       (drop): Dropout(p=0.1, inplace=False)
-      (attention): MultiheadAttention(
-        (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+      (attention): MultiheadDiffAttn(
+        (q_proj): Linear(in_features=128, out_features=128, bias=False)
+        (k_proj): Linear(in_features=128, out_features=128, bias=False)
+        (v_proj): Linear(in_features=128, out_features=128, bias=False)
+        (out_proj): Linear(in_features=128, out_features=128, bias=False)
+        (subln): RMSNorm(dim=16, eps=1e-05, elementwise_affine=True)
       )
       (mlp): Sequential(
         (0): Linear(in_features=128, out_features=512, bias=True)
@@ -112,28 +117,15 @@ DecisionTransformer(
     )
   )
 )
-Total parameters: 746759
-
-Traceback (most recent call last):
-  File "/content/Diff_RDT/RDT.py", line 525, in main
-    test(config, logger)
-  File "/content/Diff_RDT/RDT.py", line 508, in test
-    state_std = func.get_state_std(config)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/content/Diff_RDT/utils/functions.py", line 266, in get_state_std
-    clean_dataset = load_clean_dataset(config)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/content/Diff_RDT/utils/functions.py", line 254, in load_clean_dataset
-    dataset = torch.load(dataset_path)
-              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/torch/serialization.py", line 986, in load
-    with _open_file_like(f, 'rb') as opened_file:
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/torch/serialization.py", line 435, in _open_file_like
-    return _open_file(name_or_buffer, mode)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/torch/serialization.py", line 416, in __init__
-    super().__init__(open(name, mode))
-                     ^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'your_dataset_path/original/Walker2d-v4_ratio_0.1.pt'
-
+Total parameters: 745367
+-----------------------------------------------
+| eval/                            |          |
+|    12000.0_normalized_score_mean | 108.447  |
+|    12000.0_normalized_score_std  | 45.5441  |
+|    12000.0_reward_mean           | 108.447  |
+|    12000.0_reward_std            | 45.5441  |
+|    6000.0_normalized_score_mean  | 112.404  |
+|    6000.0_normalized_score_std   | 75.746   |
+|    6000.0_reward_mean            | 112.404  |
+|    6000.0_reward_std             | 75.746   |
+-----------------------------------------------
