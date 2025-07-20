@@ -471,7 +471,9 @@ def train(config: TrainConfig, logger: Logger):
                 os.path.join(logger.get_dir(), f"{epoch}.pt"),
             )
             logger.info(f"Save policy on epoch {epoch}.")
-
+    
+    if config.use_wandb:
+       wandb.finish()
 
 def test(config: TrainConfig, logger: Logger):
     config.seed = 3
