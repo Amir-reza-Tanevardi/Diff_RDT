@@ -1,0 +1,31 @@
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_setup.py:_flush():76] Current SDK version is 0.15.8
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_setup.py:_flush():76] Configure stats pid to 15648
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_setup.py:_flush():76] Loading settings from /root/.config/wandb/settings
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_setup.py:_flush():76] Loading settings from /content/Diff_RDT/wandb/settings
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2025-07-20 15:51:10,279 WARNING MainThread:15648 [wandb_setup.py:_flush():76] Could not find program at -m RDT
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': None, 'program': '-m RDT'}
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_init.py:_log_setup():507] Logging user logs to results/corruption/2024062305/wandb/offline-run-20250720_155110-c57dd86d-5626-4e3a-99b5-fe102a85b30f/logs/debug.log
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_init.py:_log_setup():508] Logging internal logs to results/corruption/2024062305/wandb/offline-run-20250720_155110-c57dd86d-5626-4e3a-99b5-fe102a85b30f/logs/debug-internal.log
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_init.py:init():547] calling init triggers
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_init.py:init():554] wandb.init called with sweep_config: {}
+config: {'eval_every': 1, 'n_episodes': 10, 'device': 'cuda', 'num_epochs': 100, 'num_updates_on_epoch': 1000, 'use_diff_att': True, 'embedding_dim': 128, 'num_layers': 3, 'num_heads': 8, 'seq_len': 20, 'episode_len': 1000, 'attention_dropout': 0.0, 'residual_dropout': 0.1, 'embedding_dropout': None, 'mlp_embedding': False, 'mlp_head': False, 'mlp_reward': True, 'embed_order': 'rsa', 'learning_rate': 0.0001, 'betas': (0.9, 0.999), 'weight_decay': 0.0001, 'clip_grad': 0.25, 'batch_size': 64, 'update_steps': 100000, 'warmup_steps': 10000, 'reward_scale': 0.001, 'normalize': True, 'normalize_reward': False, 'loss_fn': 'wmse', 'wmse_coef': (0.0, 0.0), 'reward_coef': 1.0, 'recalculate_return': False, 'correct_freq': 1, 'correct_start': 50, 'correct_thershold': None, 'target_returns': (12000.0, 6000.0), 'eval_id': '00', 'eval_only': False, 'eval_attack': True, 'eval_attack_eps': 0.01, 'eval_attack_mode': 'random', 'checkpoint_dir': None, 'use_wandb': 1, 'group': '2024062305', 'env': 'Walker2d-v4', 'minari_dataset_id': 'minari/walker2d-medium-v2', 'seed': 0, 'down_sample': True, 'sample_ratio': 0.1, 'debug': False, 'alg_type': 'RDT', 'logdir': 'results/corruption', 'dataset_path': 'your_dataset_path', 'save_model': True, 'corruption_agent': 'IQL', 'corruption_seed': 0, 'corruption_mode': 'random', 'corruption_obs': 1.0, 'corruption_act': 0.0, 'corruption_rew': 0.0, 'corruption_rate': 0.3, 'use_original': 0, 'same_index': 0, 'froce_attack': 0, 'logfile': 'RDT_Walker2d-v4_rnd_obs_0_20250720155109_dac2342f-9d6d-473c-879c-b6b7e9d6dfed_diff_att_8'}
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_init.py:init():596] starting backend
+2025-07-20 15:51:10,279 INFO    MainThread:15648 [wandb_init.py:init():600] setting up manager
+2025-07-20 15:51:10,280 INFO    MainThread:15648 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-07-20 15:51:10,281 INFO    MainThread:15648 [wandb_init.py:init():606] backend started and connected
+2025-07-20 15:51:10,285 INFO    MainThread:15648 [wandb_init.py:init():697] updated telemetry
+2025-07-20 15:51:10,290 INFO    MainThread:15648 [wandb_init.py:init():730] communicating run to backend with 60.0 second timeout
+2025-07-20 15:51:10,294 INFO    MainThread:15648 [wandb_init.py:init():781] starting run threads in backend
+2025-07-20 15:51:11,174 INFO    MainThread:15648 [wandb_run.py:_console_start():2159] atexit reg
+2025-07-20 15:51:11,174 INFO    MainThread:15648 [wandb_run.py:_redirect():2014] redirect: wrap_raw
+2025-07-20 15:51:11,175 INFO    MainThread:15648 [wandb_run.py:_redirect():2079] Wrapping output streams.
+2025-07-20 15:51:11,175 INFO    MainThread:15648 [wandb_run.py:_redirect():2104] Redirects installed.
+2025-07-20 15:51:11,175 INFO    MainThread:15648 [wandb_init.py:init():822] run started, returning control to user process
+2025-07-20 17:18:23,242 INFO    MainThread:15648 [wandb_run.py:_finish():1894] finishing run Diff RDT/c57dd86d-5626-4e3a-99b5-fe102a85b30f
+2025-07-20 17:18:23,243 INFO    MainThread:15648 [wandb_run.py:_atexit_cleanup():2128] got exitcode: 0
+2025-07-20 17:18:23,243 INFO    MainThread:15648 [wandb_run.py:_restore():2111] restore
+2025-07-20 17:18:23,243 INFO    MainThread:15648 [wandb_run.py:_restore():2117] restore done
+2025-07-20 17:18:24,264 INFO    MainThread:15648 [wandb_run.py:_footer_history_summary_info():3481] rendering history
+2025-07-20 17:18:24,266 INFO    MainThread:15648 [wandb_run.py:_footer_history_summary_info():3513] rendering summary

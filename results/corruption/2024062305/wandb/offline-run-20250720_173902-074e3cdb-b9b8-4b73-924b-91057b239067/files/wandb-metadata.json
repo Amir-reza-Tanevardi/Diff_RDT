@@ -1,0 +1,73 @@
+{
+    "os": "Linux-6.1.123+-x86_64-with-glibc2.35",
+    "python": "3.11.13",
+    "heartbeatAt": "2025-07-20T17:39:02.219404",
+    "startedAt": "2025-07-20T17:39:02.136116",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--seed",
+        "0",
+        "--env",
+        "Walker2d-v4",
+        "--corruption_seed",
+        "0",
+        "--corruption_mode",
+        "random",
+        "--corruption_obs",
+        "1.0",
+        "--corruption_rate",
+        "0.3",
+        "--dataset_path",
+        "your_dataset_path",
+        "--use_wandb",
+        "1",
+        "--num_heads",
+        "16"
+    ],
+    "state": "running",
+    "program": "-m RDT",
+    "git": {
+        "remote": "https://github.com/Amir-reza-Tanevardi/Diff_RDT",
+        "commit": "b96c7a9bb8369cca3143d1783f67fa9c15a0bf82"
+    },
+    "email": null,
+    "root": "/content/Diff_RDT",
+    "host": "4542f4ea5d48",
+    "username": "root",
+    "executable": "/usr/bin/python3",
+    "cpu_count": 1,
+    "cpu_count_logical": 2,
+    "cpu_freq": {
+        "current": 2000.198,
+        "min": 0.0,
+        "max": 0.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2000.198,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2000.198,
+            "min": 0.0,
+            "max": 0.0
+        }
+    ],
+    "disk": {
+        "total": 112.6365966796875,
+        "used": 47.9960823059082
+    },
+    "gpu": "Tesla T4",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "Tesla T4",
+            "memory_total": 16106127360
+        }
+    ],
+    "memory": {
+        "total": 12.673782348632812
+    }
+}

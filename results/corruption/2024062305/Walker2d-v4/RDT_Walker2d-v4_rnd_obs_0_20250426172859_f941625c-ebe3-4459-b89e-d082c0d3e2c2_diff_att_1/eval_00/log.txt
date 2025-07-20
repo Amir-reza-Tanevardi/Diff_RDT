@@ -1,0 +1,120 @@
+Logging to results/corruption/2024062305/Walker2d-v4/RDT_Walker2d-v4_rnd_obs_0_20250426172859_f941625c-ebe3-4459-b89e-d082c0d3e2c2_diff_att_1/eval_00
+eval_every: 1
+n_episodes: 100
+device: cuda
+num_epochs: 100
+num_updates_on_epoch: 1000
+use_diff_att: True
+embedding_dim: 128
+num_layers: 3
+num_heads: 1
+seq_len: 20
+episode_len: 1000
+attention_dropout: 0.0
+residual_dropout: 0.1
+embedding_dropout: None
+mlp_embedding: False
+mlp_head: False
+mlp_reward: True
+embed_order: rsa
+learning_rate: 0.0001
+betas: (0.9, 0.999)
+weight_decay: 0.0001
+clip_grad: 0.25
+batch_size: 64
+update_steps: 100000
+warmup_steps: 10000
+reward_scale: 0.001
+normalize: True
+normalize_reward: False
+loss_fn: wmse
+wmse_coef: (0.0, 0.0)
+reward_coef: 1.0
+recalculate_return: False
+correct_freq: 1
+correct_start: 50
+correct_thershold: None
+target_returns: (12000.0, 6000.0)
+eval_id: 00
+eval_only: True
+eval_attack: True
+eval_attack_eps: 0.01
+eval_attack_mode: random
+checkpoint_dir: results/corruption/2024062305/Walker2d-v4/RDT_Walker2d-v4_rnd_obs_0_20250426172859_f941625c-ebe3-4459-b89e-d082c0d3e2c2_diff_att_1
+use_wandb: 0
+group: 2024062305
+env: Walker2d-v4
+minari_dataset_id: minari/walker2d-medium-v2
+seed: 0
+down_sample: True
+sample_ratio: 0.1
+debug: False
+alg_type: RDT
+logdir: results/corruption
+dataset_path: your_dataset_path
+save_model: True
+corruption_agent: IQL
+corruption_seed: 0
+corruption_mode: random
+corruption_obs: 1.0
+corruption_act: 0.0
+corruption_rew: 0.0
+corruption_rate: 0.3
+use_original: 0
+same_index: 0
+froce_attack: 0
+Load new dataset from your_dataset_path/log_attack_data/Walker2d-v4/random_7_ratio_0.1_obs_1.0_0.3.pth
+random observations
+Attack name: _ratio_0.1_obs_1.0_0.3
+Dataset: 104 trajectories
+State mean: [[ 1.22343121e+00 -1.60843212e-02 -4.14056742e-01 -6.86650995e-03
+   2.57218710e-01 -9.77953437e-02 -5.49538368e-01  1.16362637e-01
+   4.96908438e+00 -3.20697788e-03  3.53868854e-03 -5.01834185e-02
+  -2.41093220e-02  6.34670920e-01 -1.65051532e-02  7.73467306e-02
+   5.38554515e-01]], std: [[0.06327234 0.23987227 0.41314041 0.09798816 0.6417176  0.21635535
+  0.4056316  0.67894117 1.40988678 0.6786803  2.34900562 3.93076668
+  1.96591348 6.01000839 3.11615918 5.44557899 6.79806155]]
+Network: 
+DecisionTransformer(
+  (emb_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+  (out_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+  (timestep_emb): Embedding(1020, 128)
+  (state_emb): Linear(in_features=17, out_features=128, bias=True)
+  (action_emb): Linear(in_features=6, out_features=128, bias=True)
+  (return_emb): Linear(in_features=1, out_features=128, bias=True)
+  (blocks): ModuleList(
+    (0-2): 3 x TransformerBlock(
+      (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (drop): Dropout(p=0.1, inplace=False)
+      (attention): MultiheadDiffAttn(
+        (q_proj): Linear(in_features=128, out_features=128, bias=False)
+        (k_proj): Linear(in_features=128, out_features=128, bias=False)
+        (v_proj): Linear(in_features=128, out_features=128, bias=False)
+        (out_proj): Linear(in_features=128, out_features=128, bias=False)
+        (subln): RMSNorm(dim=16, eps=1e-05, elementwise_affine=True)
+      )
+      (mlp): Sequential(
+        (0): Linear(in_features=128, out_features=512, bias=True)
+        (1): GELU(approximate='none')
+        (2): Linear(in_features=512, out_features=128, bias=True)
+        (3): Dropout(p=0.1, inplace=False)
+      )
+    )
+  )
+  (predict_dropout): Dropout(p=0.1, inplace=False)
+  (action_head): MLPBlock(
+    (model): Sequential(
+      (0): Linear(in_features=128, out_features=6, bias=True)
+      (1): Tanh()
+    )
+  )
+  (reward_head): MLPBlock(
+    (model): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): GELU(approximate='none')
+      (2): Linear(in_features=128, out_features=1, bias=True)
+    )
+  )
+)
+Total parameters: 745367

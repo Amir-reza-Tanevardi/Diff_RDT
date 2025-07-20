@@ -1,0 +1,238 @@
+wandb_version: 1
+
+eval_every:
+  desc: null
+  value: 1
+n_episodes:
+  desc: null
+  value: 10
+device:
+  desc: null
+  value: cuda
+num_epochs:
+  desc: null
+  value: 100
+num_updates_on_epoch:
+  desc: null
+  value: 1000
+use_diff_att:
+  desc: null
+  value: true
+embedding_dim:
+  desc: null
+  value: 128
+num_layers:
+  desc: null
+  value: 3
+num_heads:
+  desc: null
+  value: 8
+seq_len:
+  desc: null
+  value: 20
+episode_len:
+  desc: null
+  value: 1000
+attention_dropout:
+  desc: null
+  value: 0.0
+residual_dropout:
+  desc: null
+  value: 0.1
+embedding_dropout:
+  desc: null
+  value: null
+mlp_embedding:
+  desc: null
+  value: false
+mlp_head:
+  desc: null
+  value: false
+mlp_reward:
+  desc: null
+  value: true
+embed_order:
+  desc: null
+  value: rsa
+learning_rate:
+  desc: null
+  value: 0.0001
+betas:
+  desc: null
+  value:
+  - 0.9
+  - 0.999
+weight_decay:
+  desc: null
+  value: 0.0001
+clip_grad:
+  desc: null
+  value: 0.25
+batch_size:
+  desc: null
+  value: 64
+update_steps:
+  desc: null
+  value: 100000
+warmup_steps:
+  desc: null
+  value: 10000
+reward_scale:
+  desc: null
+  value: 0.001
+normalize:
+  desc: null
+  value: true
+normalize_reward:
+  desc: null
+  value: false
+loss_fn:
+  desc: null
+  value: wmse
+wmse_coef:
+  desc: null
+  value:
+  - 0.0
+  - 0.0
+reward_coef:
+  desc: null
+  value: 1.0
+recalculate_return:
+  desc: null
+  value: false
+correct_freq:
+  desc: null
+  value: 1
+correct_start:
+  desc: null
+  value: 50
+correct_thershold:
+  desc: null
+  value: null
+target_returns:
+  desc: null
+  value:
+  - 12000.0
+  - 6000.0
+eval_id:
+  desc: null
+  value: '00'
+eval_only:
+  desc: null
+  value: false
+eval_attack:
+  desc: null
+  value: true
+eval_attack_eps:
+  desc: null
+  value: 0.01
+eval_attack_mode:
+  desc: null
+  value: random
+checkpoint_dir:
+  desc: null
+  value: null
+use_wandb:
+  desc: null
+  value: 1
+group:
+  desc: null
+  value: '2024062305'
+env:
+  desc: null
+  value: Walker2d-v4
+minari_dataset_id:
+  desc: null
+  value: minari/walker2d-medium-v2
+seed:
+  desc: null
+  value: 0
+down_sample:
+  desc: null
+  value: true
+sample_ratio:
+  desc: null
+  value: 0.1
+debug:
+  desc: null
+  value: false
+alg_type:
+  desc: null
+  value: RDT
+logdir:
+  desc: null
+  value: results/corruption
+dataset_path:
+  desc: null
+  value: your_dataset_path
+save_model:
+  desc: null
+  value: true
+corruption_agent:
+  desc: null
+  value: IQL
+corruption_seed:
+  desc: null
+  value: 0
+corruption_mode:
+  desc: null
+  value: random
+corruption_obs:
+  desc: null
+  value: 1.0
+corruption_act:
+  desc: null
+  value: 0.0
+corruption_rew:
+  desc: null
+  value: 0.0
+corruption_rate:
+  desc: null
+  value: 0.3
+use_original:
+  desc: null
+  value: 0
+same_index:
+  desc: null
+  value: 0
+froce_attack:
+  desc: null
+  value: 0
+logfile:
+  desc: null
+  value: RDT_Walker2d-v4_rnd_obs_0_20250720155109_dac2342f-9d6d-473c-879c-b6b7e9d6dfed_diff_att_8
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.13
+    cli_version: 0.15.8
+    framework: huggingface
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1753026670.281964
+    t:
+      1:
+      - 1
+      - 55
+      - 105
+      2:
+      - 1
+      - 11
+      - 12
+      - 49
+      - 55
+      - 105
+      3:
+      - 2
+      - 4
+      - 13
+      - 14
+      - 16
+      - 23
+      - 42
+      4: 3.11.13
+      5: 0.15.8
+      8:
+      - 5
+      10:
+      - 3
