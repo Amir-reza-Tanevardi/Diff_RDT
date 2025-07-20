@@ -228,8 +228,8 @@ def wandb_init(config) -> None:
                 corruption_info += f"_act_{config.corruption_act}"
             if config.corruption_rew > 0:
                 corruption_info += f"_rew_{config.corruption_rew}"
-            if config.corruption_next_obs > 0:
-                corruption_info += f"_next_obs_{config.corruption_next_obs}"
+            #if config.corruption_next_obs > 0:
+            #    corruption_info += f"_next_obs_{config.corruption_next_obs}"
             corruption_info += f"_{config.corruption_rate}"
     name = f"{config.alg_type}-{corruption_info}-{config.seed}"
     group = f"{config.group}-{config.env.split('-')[0]}-{corruption_info}"
@@ -244,6 +244,7 @@ def wandb_init(config) -> None:
         dir=wandb_dir,
         mode="offline",
         save_code=True,
+        resume="allow",
     )
     wandb.run.save()
 
