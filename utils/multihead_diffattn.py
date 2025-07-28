@@ -128,15 +128,20 @@ class MultiheadDiffAttn(nn.Module):
             )
         attn_weights = torch.nan_to_num(attn_weights)
         attn_weights += attn_mask   
-        attn_weights = F.softmax(attn_weights, dim=-1, dtype=torch.float32).type_as(
-            attn_weights
-        )
 
+        attn_weights = attn_weights.view(bsz, self.num_heads, 2, tgt_len, src_len)
+        A1 = attn_weights[:, :, 0]
+        A2 = attn_weights[:, :, 1]
+        
+        A1 = F.softmax(A1, dim=-1, dtype=torch.float32).type_as(A1)
+        A2 = F.softmax(A2, dim=-1, dtype=torch.float32).type_as(A2)
+
+        
         lambda_1 = torch.exp(torch.sum(self.lambda_q1 * self.lambda_k1, dim=-1).float()).type_as(q)
         lambda_2 = torch.exp(torch.sum(self.lambda_q2 * self.lambda_k2, dim=-1).float()).type_as(q)
         lambda_full = lambda_1 - lambda_2 + self.lambda_init
-        attn_weights = attn_weights.view(bsz, self.num_heads, 2, tgt_len, src_len)
-        attn_weights = attn_weights[:, :, 0] - lambda_full * attn_weights[:, :, 1]
+        
+        attn_weights = A1 - lambda_full * A2
         
         attn = torch.matmul(attn_weights, v)
         attn = self.subln(attn)
