@@ -1,5 +1,5 @@
 import numpy as np
-import gymnasium as gym
+import gym
 
 def get_drop_fn(drop_cfg, buffer_size, traj_sp, rng):
     if drop_cfg.drop_fn == 'const':
