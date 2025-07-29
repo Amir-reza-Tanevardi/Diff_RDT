@@ -8,7 +8,7 @@ import time
 import json
 import traceback
 #import d4rl  # noqa
-import gym
+import gymnasium as gym
 import numpy as np
 import pyrallis
 import torch
