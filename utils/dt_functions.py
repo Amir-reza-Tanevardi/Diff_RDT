@@ -2,7 +2,7 @@ import os, sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from typing import Any, DefaultDict, Dict, List, Optional, Tuple
-import gym
+import gymnasium as gym
 import numpy as np
 import torch
 import torch.nn as nn
