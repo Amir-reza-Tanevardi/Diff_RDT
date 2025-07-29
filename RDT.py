@@ -363,7 +363,7 @@ def train(config: TrainConfig, logger: Logger):
         state_std=dataset.state_std,
         reward_scale=config.reward_scale,
     )
-    env.reset(seed=config.seed)
+    env.seed(config.seed)
 
     # model
     model = set_model(config)
