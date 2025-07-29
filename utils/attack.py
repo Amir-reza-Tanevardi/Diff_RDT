@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
 from typing import Dict
 
 import copy
-import gymnasium as gym
+import gym
 #import d4rl
 import torch
 import numpy as np
