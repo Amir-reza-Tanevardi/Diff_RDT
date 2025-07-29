@@ -170,7 +170,7 @@ class TransformerBlock(nn.Module):
         if use_diff_att:
           #num_heads = 1 if num_heads == 1 else num_heads // 2
           self.attention = MultiheadDiffAttn(
-              embed_dim = embedding_dim, num_heads = num_heads, depth=idx# , batch_first=True
+              embed_dim = embedding_dim, num_heads = num_heads#, depth=idx# , batch_first=True
           )
         else:
           self.attention = nn.MultiheadAttention(
@@ -214,8 +214,8 @@ class TransformerBlock(nn.Module):
           rel_pos = build_rel_pos(norm_x.shape[1],self.attention.head_dim ,norm_x.device)  # <--- YOU NEED TO PROVIDE THIS FUNCTION
           attention_out = self.attention(
               x=norm_x,
-              rel_pos=rel_pos,
-              attn_mask=causal_mask.float(),  # MultiheadDiffAttn expects float mask
+              #rel_pos=rel_pos,
+              #attn_mask=causal_mask.float(),  # MultiheadDiffAttn expects float mask
           )
 
       if self.batch_first and is_batched and isinstance(self.attention, nn.MultiheadAttention):
