@@ -2,7 +2,7 @@ import os, sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from typing import Any, Dict, Union, Tuple, Optional
-import gym
+import gymnasium as gym
 import uuid
 import wandb
 import random
