@@ -513,7 +513,7 @@ def test(config: TrainConfig, logger: Logger):
 
     # model
     model = set_model(config)
-    model.load_state_dict(torch.load(os.path.join(config.checkpoint_dir, "100.pt")))
+    model.load_state_dict(torch.load(os.path.join(config.checkpoint_dir, "policy_best.pth")))
     model.eval()
     logger.info(f"Network: \n{str(model)}")
     logger.info(f"Total parameters: {sum(p.numel() for p in model.parameters())}")
