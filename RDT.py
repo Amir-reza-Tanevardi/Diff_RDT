@@ -203,7 +203,7 @@ class TrainConfig:
             if self.corruption_act > 0: corruption_tag += "act_"
             if self.corruption_rew > 0: corruption_tag += "rew_"
             for file_name in os.listdir(os.path.join(self.logdir, self.group, self.env)):
-                if f"{corruption_tag}{self.seed}_" in file_name:
+                if f"{corruption_tag}{self.seed}_" in file_name and self.checkpoint_dir is None:
                     self.checkpoint_dir = os.path.join(self.logdir, self.group, self.env, file_name)
                     break
             with open(os.path.join(self.checkpoint_dir, "params.json"), "r") as f:
