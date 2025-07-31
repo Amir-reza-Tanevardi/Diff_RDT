@@ -211,7 +211,7 @@ class TransformerBlock(nn.Module):
       else:  # assume it's MultiheadDiffAttn
           if self.batch_first and is_batched:
               norm_x = norm_x.transpose(0, 1)  # [batch_size, seq_len, emb_dim] for MultiheadDiffAttn
-          rel_pos = build_rel_pos(norm_x.shape[1],self.attention.head_dim ,norm_x.device)  # <--- YOU NEED TO PROVIDE THIS FUNCTION
+          #rel_pos = build_rel_pos(norm_x.shape[1],self.attention.head_dim ,norm_x.device)  # <--- YOU NEED TO PROVIDE THIS FUNCTION
           attention_out = self.attention(
               x=norm_x,
               #rel_pos=rel_pos,
