@@ -208,7 +208,7 @@ class TrainConfig:
                     break
             with open(os.path.join(self.checkpoint_dir, "params.json"), "r") as f:
                 config = json.load(f)
-            unoverwritten_keys = ["n_episodes", "checkpoint_dir"]
+            unoverwritten_keys = ["n_episodes", "checkpoint_dir", "seed", "corruption_seed"]
             for key, value in config.items():
                 if key in self.__dict__ and not key.startswith("eval") and key not in unoverwritten_keys:
                     try:
